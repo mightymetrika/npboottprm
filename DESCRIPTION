@@ -19,4 +19,5 @@ Depends:
 LazyData: true
 Imports: 
     ggplot2,
-    shiny
+    shiny,
+    shinythemes
