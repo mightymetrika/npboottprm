@@ -1,3 +1,22 @@
+#' Shiny App for Nonparametric Bootstrap Tests with Pooled Resampling
+#'
+#' This function creates a Shiny app for performing nonparametric bootstrap tests
+#' with pooled resampling. The app allows you to conduct an independent t-test,
+#' a paired t-test, or a one-way ANOVA, depending on your input.
+#'
+#' @export
+#'
+#' @return An interactive Shiny app.
+#'
+#' @examples
+#' if(interactive()){
+#'   nonparboot_app()
+#' }
+#'
+#' @references
+#' Dwivedi AK, Mallawaarachchi I, Alvarado LA (2017). 'Analysis of small sample
+#' size studies using nonparametric bootstrap test with pooled resampling method.'
+#' Statistics in Medicine, 36 (14), 2187-2205. https://doi.org/10.1002/sim.7263
 nonparboot_app <- function(){
   ui <- shiny::fluidPage(
     theme = shinythemes::shinytheme("yeti"),
@@ -54,7 +73,11 @@ nonparboot_app <- function(){
         shiny::tableOutput("result_table_effect"),
         shiny::h3("Bootstrap Distribution of Effect Size"),
         shiny::plotOutput("hist_effect"),
-        shiny::sliderInput("bins_effect", "Number of bins:", min = 10, max = 50, value = 30)
+        shiny::sliderInput("bins_effect", "Number of bins:", min = 10, max = 50, value = 30),
+        shiny::br(),  # Add a line break
+        shiny::br(),  # Add a line break
+        shiny::h3("Method Explanation"),
+        shiny::uiOutput("method_explanation")
       )
     })
 
@@ -108,6 +131,45 @@ nonparboot_app <- function(){
         ggplot2::labs(x = "Bootstrap Distribution", y = "Frequency",
                       title = "Histogram of Bootstrap Effect Size Distribution: Original (Observed) Effect Size and Bootstrap Confidence Intervals Indicated")
     })
+
+    output$method_explanation <- shiny::renderUI({
+      if (input$test == "t") {
+        explanation_text <- paste0(
+          "<p>This analysis applies a nonparametric bootstrap independent t-test with pooled resampling, as described in Dwivedi et al. (2017). ",
+          "Bootstrap resampling is used to approximate the sampling distribution of the t-statistic. ",
+          "The 'Bootstrap Distribution' plots depict the distribution of the bootstrap-resampled t-statistic and the bootstrap-resampled effect size. ",
+          "The vertical lines in these plots represent the statistic or effect size calculated from the original sample (blue) and the bootstrap confidence intervals (red). ",
+          "The p-value is calculated as the proportion of bootstrap-resampled statistics that are as extreme or more extreme than the observed statistic. ",
+          "The 'Effect Size' is a measure of the strength of the observed effect. For the independent t-test, it is the raw difference in means.</p>",
+          "<p>Dwivedi AK, Mallawaarachchi I, Alvarado LA (2017). 'Analysis of small sample size studies using nonparametric bootstrap test with pooled resampling method.' Statistics ",
+          "in Medicine, 36 (14), 2187-2205. https://doi.org/10.1002/sim.7263</p>"
+        )
+      } else if (input$test == "pt") {
+        explanation_text <- paste0(
+          "<p>This analysis applies a nonparametric bootstrap paired t-test with pooled resampling, as described in Dwivedi et al. (2017). ",
+          "Bootstrap resampling is used to approximate the sampling distribution of the t-statistic. ",
+          "The 'Bootstrap Distribution' plots depict the distribution of the bootstrap-resampled t-statistic and the bootstrap-resampled effect size. ",
+          "The vertical lines in these plots represent the statistic or effect size calculated from the original sample (blue) and the bootstrap confidence intervals (red). ",
+          "The p-value is calculated as the proportion of bootstrap-resampled statistics that are as extreme or more extreme than the observed statistic. ",
+          "The 'Effect Size' is a measure of the strength of the observed effect. For the paired t-test, it is the raw mean difference of pairs.</p>",
+          "<p>Dwivedi AK, Mallawaarachchi I, Alvarado LA (2017). 'Analysis of small sample size studies using nonparametric bootstrap test with pooled resampling method.' Statistics ",
+          "in Medicine, 36 (14), 2187-2205. https://doi.org/10.1002/sim.7263</p>"
+        )
+      } else {  # input$test == "F"
+        explanation_text <- paste0(
+          "<p>This analysis applies a nonparametric bootstrap F-test with pooled resampling, as described in Dwivedi et al. (2017). ",
+          "Bootstrap resampling is used to approximate the sampling distribution of the F-statistic. ",
+          "The 'Bootstrap Distribution' plots depict the distribution of the bootstrap-resampled F-statistic and the bootstrap-resampled effect size. ",
+          "The vertical lines in these plots represent the statistic or effect size calculated from the original sample (blue) and the bootstrap confidence intervals (red). ",
+          "The p-value is calculated as the proportion of bootstrap-resampled statistics that are as extreme or more extreme than the observed statistic. ",
+          "The 'Effect Size' is a measure of the strength of the observed effect. For ANOVA, the effect size is eta-squared, which represents the proportion of total variance in the dependent variable that can be attributed to the independent variable.</p>",
+          "<p>Dwivedi AK, Mallawaarachchi I, Alvarado LA (2017). 'Analysis of small sample size studies using nonparametric bootstrap test with pooled resampling method.' Statistics ",
+          "in Medicine, 36 (14), 2187-2205. https://doi.org/10.1002/sim.7263</p>"
+        )
+      }
+      shiny::HTML(explanation_text)
+    })
+
   }
 
   # Run the application

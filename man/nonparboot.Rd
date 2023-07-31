@@ -54,10 +54,10 @@ A list with the following components:
 }
 }
 \description{
-This function performs a nonparametric bootstrap test for small sample sizes,
-as described in Dwivedi et al. (2017). It supports t-tests (independent and
-paired) and F-tests (one-way ANOVA), with a user-specified number of bootstrap
-resamples.
+This function performs a nonparametric bootstrap test with pooled resampling
+for small sample sizes, as described in Dwivedi et al. (2017). It supports
+t-tests (independent and paired) and F-tests (one-way ANOVA), with a
+user-specified number of bootstrap resamples.
 }
 \examples{
 # Example usage of nonparboot
