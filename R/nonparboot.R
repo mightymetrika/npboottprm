@@ -26,11 +26,12 @@
 #' @return A list with the following components:
 #' \itemize{
 #'   \item \code{p.value}: The p-value of the test.
-#'   \item \code{effect.size}: The effect size (mean difference or eta-squared)
-#'     calculated from the original data.
-#'   \item \code{ci.effect.size}: The confidence interval for the effect size.
-#'   \item \code{bootstrap.dist}: The distribution of the test statistic values
-#'     from the bootstrap resamples.
+#'   \item \code{orig.stat}: The test statistic calculated from the original data.
+#'   \item \code{ci.stat}: The confidence interval for the test statistic from the bootstrap distribution.
+#'   \item \code{bootstrap.stat.dist}: The distribution of the test statistic values from the bootstrap resamples.
+#'   \item \code{effect.size}: The effect size (mean difference or eta-squared) calculated from the original data.
+#'   \item \code{ci.effect.size}: The confidence interval for the effect size from the bootstrap distribution.
+#'   \item \code{bootstrap.effect.dist}: The distribution of effect size values from the bootstrap resamples.
 #' }
 #'
 #' @references
@@ -100,10 +101,16 @@ nonparboot <- function (data, x, y = NULL, grp = NULL, nboot,
   # Calculate the p-value
   p_boot <- mean(abs(stat_values) >= abs(pre_calc$orig_stat), na.rm = TRUE)
 
+  # Calculate the confidence interval for the test statistic
+  ci_stat <- stats::quantile(stat_values, c((1 - conf.level) / 2, 1 - (1 - conf.level) / 2))
+
   # Calculate the confidence interval for the difference/effect
   ci_diff <- stats::quantile(diff_values, c((1 - conf.level) / 2, 1 - (1 - conf.level) / 2))
 
-  return(list(p.value = p_boot, effect.size = pre_calc$orig_diff, ci.effect.size = ci_diff, bootstrap.dist = stat_values))
+  return(list(p.value = p_boot, orig.stat = pre_calc$orig_stat,
+              ci.stat = ci_stat, bootstrap.stat.dist = stat_values,
+              effect.size = pre_calc$orig_diff, ci.effect.size = ci_diff,
+              bootstrap.effect.dist = diff_values))
 }
 
 #' Internal Bootstrap Sampling Function for T-tests
