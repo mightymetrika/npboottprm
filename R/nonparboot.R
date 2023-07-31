@@ -1,4 +1,4 @@
-#' Nonparametric Bootstrap Test for Small Sample Sizes
+#' Nonparametric Bootstrap Test with Pooled Resampling for Small Sample Sizes
 #'
 #' This function performs a nonparametric bootstrap test for small sample sizes,
 #' as described in Dwivedi et al. (2017). It supports t-tests (independent and
@@ -71,8 +71,7 @@ nonparboot <- function (data, x, y = NULL, grp = NULL, nboot,
     grp_val <- data[[grp]]
     unique_grp <- unique(grp_val)
     grp_sizes <- table(grp_val)
-    pre_calc <- list(orig_stat = stats::t.test(x_val[grp_val == unique_grp[1]],
-                                               x_val[grp_val == unique_grp[2]])$statistic,
+    pre_calc <- list(orig_stat = stats::t.test(x_val ~ grp_val)$statistic,
                      orig_diff = mean(x_val[grp_val == unique_grp[1]]) - mean(x_val[grp_val == unique_grp[2]]))
     } else if (test == "pt") {
     sample_fun <- bootstrap_pt_sample
@@ -128,8 +127,8 @@ nonparboot <- function (data, x, y = NULL, grp = NULL, nboot,
 #' @keywords internal
 bootstrap_t_sample <- function(x_val, y_val, grp_val, grp_sizes, pre_calc) {
   unique_grp <- unique(grp_val)
-  group1 <- sample(x_val[grp_val == unique_grp[1]], size = grp_sizes[unique_grp[1]], replace = TRUE)
-  group2 <- sample(x_val[grp_val == unique_grp[2]], size = grp_sizes[unique_grp[2]], replace = TRUE)
+  group1 <- sample(x_val, size = grp_sizes[unique_grp[1]], replace = TRUE)
+  group2 <- sample(x_val, size = grp_sizes[unique_grp[2]], replace = TRUE)
   t_stat <- stats::t.test(group1, group2, var.equal = TRUE, na.rm = T)$statistic
   diff_mean <- mean(group1) - mean(group2)
   return(c(t_stat, diff_mean))
@@ -156,9 +155,9 @@ bootstrap_t_sample <- function(x_val, y_val, grp_val, grp_sizes, pre_calc) {
 #'
 #' @keywords internal
 bootstrap_pt_sample <- function(x_val, y_val, grp_val, grp_sizes, pre_calc) {
-  indices <- sample(1:length(x_val), size = length(x_val), replace = TRUE)
-  group1 <- x_val[indices]
-  group2 <- y_val[indices]
+  all_vals <- c(x_val, y_val)
+  group1 <- sample(all_vals, size = length(x_val), replace = TRUE)
+  group2 <- sample(all_vals, size = length(x_val), replace = TRUE)
   t_stat <- stats::t.test(group1, group2, paired = TRUE)$statistic
   diff_mean <- mean(group1 - group2)
   return(c(t_stat, diff_mean))
@@ -186,7 +185,7 @@ bootstrap_f_sample <- function(x_val, y_val, grp_val, grp_sizes, pre_calc) {
   val_boot <- c()
   grp_boot <- c()
   for (g in unique(grp_val)) {
-    group_sample <- sample(x_val[grp_val == g], size = grp_sizes[g], replace = TRUE)
+    group_sample <- sample(x_val, size = grp_sizes[g], replace = TRUE)
     val_boot <- c(val_boot, group_sample)
     grp_boot <- c(grp_boot, rep(g, grp_sizes[g]))
   }
