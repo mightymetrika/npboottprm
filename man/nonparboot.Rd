@@ -45,11 +45,12 @@ generator, for reproducibility. Default is NULL (no seed).}
 A list with the following components:
 \itemize{
 \item \code{p.value}: The p-value of the test.
-\item \code{effect.size}: The effect size (mean difference or eta-squared)
-calculated from the original data.
-\item \code{ci.effect.size}: The confidence interval for the effect size.
-\item \code{bootstrap.dist}: The distribution of the test statistic values
-from the bootstrap resamples.
+\item \code{orig.stat}: The test statistic calculated from the original data.
+\item \code{ci.stat}: The confidence interval for the test statistic from the bootstrap distribution.
+\item \code{bootstrap.stat.dist}: The distribution of the test statistic values from the bootstrap resamples.
+\item \code{effect.size}: The effect size (mean difference or eta-squared) calculated from the original data.
+\item \code{ci.effect.size}: The confidence interval for the effect size from the bootstrap distribution.
+\item \code{bootstrap.effect.dist}: The distribution of effect size values from the bootstrap resamples.
 }
 }
 \description{

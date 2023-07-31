@@ -4,13 +4,10 @@ nonparboot_app <- function(){
     shiny::column(width = 4,
                   shiny::h3("Arguments"),
                   shiny::fileInput("file", "Upload CSV File", accept = c(".csv")),
-                  shiny::tags$div(title = "Enter the name of the X Variable.",
-                                  shiny::textInput("x", "X Variable", placeholder = "Enter X variable name here")),
+                  shiny::textInput("x", "X Variable", placeholder = "Enter X variable name here"),
                   shiny::selectInput("test", "Test Type", c("t", "pt", "F")),
-                  shiny::tags$div(title = "For paired t-test ('pt'), enter the name of the Y Variable.",
-                                  shiny::textInput("y", "Y Variable (optional)", placeholder = "Enter Y variable name here")),
-                  shiny::tags$div(title = "For independent t-test ('t') or F-test ('F'), enter the name of the Grouping Variable.",
-                                  shiny::textInput("grp", "Grouping Variable (optional)", placeholder = "Enter Grouping variable name here")),
+                  shiny::textInput("y", "Y Variable (optional)", placeholder = "Enter Y variable name here"),
+                  shiny::textInput("grp", "Grouping Variable (optional)", placeholder = "Enter Grouping variable name here"),
                   shiny::numericInput("nboot", "Number of Bootstrap Resamples", value = 1000, min = 1),
                   shiny::numericInput("conf.level", "Confidence Level", value = 0.95, min = 0, max = 1),
                   shiny::numericInput("seed", "Random Seed (optional)", value = NA),
@@ -18,12 +15,8 @@ nonparboot_app <- function(){
     ),
     shiny::column(width = 8, align="center",
                   shiny::h3("Nonparametric Bootstrap Test"),
-                  shiny::br(),  # Add a line break
-                  shiny::br(),  # Add a line break
-                  shiny::tableOutput("result_table"),
-                  shiny::br(),  # Add a line break
-                  shiny::br(),  # Add a line break
-                  shiny::uiOutput("histAndSlider")
+                  shiny::uiOutput("resultUI"),
+                  shiny::uiOutput("histAndSliderUI")
     )
   )
 
@@ -46,40 +39,72 @@ nonparboot_app <- function(){
                  test = input$test, conf.level = input$conf.level, seed = seed)
     })
 
-    # Display result in a table
-    output$result_table <- shiny::renderTable({
+    # Generate UI for results
+    output$resultUI <- shiny::renderUI({
+      shiny::req(results())
+      list(
+        shiny::h3("Test Statistic Results"),
+        shiny::tableOutput("result_table_stat"),
+        shiny::h3("Bootstrap Distribution of Test Statistic"),
+        shiny::plotOutput("hist_stat"),
+        shiny::sliderInput("bins_stat", "Number of bins:", min = 10, max = 50, value = 30),
+        shiny::h3("Effect Size Results"),
+        shiny::tableOutput("result_table_effect"),
+        shiny::h3("Bootstrap Distribution of Effect Size"),
+        shiny::plotOutput("hist_effect"),
+        shiny::sliderInput("bins_effect", "Number of bins:", min = 10, max = 50, value = 30)
+      )
+    })
+
+    # Display result in a table for test statistic
+    output$result_table_stat <- shiny::renderTable({
+      shiny::req(results())
+      res <- results()
+      df_res <- data.frame(
+        Test_Statistic = res$orig.stat,
+        CI_Lower = res$ci.stat[1],
+        CI_Upper = res$ci.stat[2],
+        P_Value = res$p.value
+      )
+      names(df_res) <- c("Test Statistic", "CI (Lower)", "CI (Upper)", "P-value")
+      df_res
+    }, row.names = FALSE)
+
+    # Display histogram for test statistic
+    output$hist_stat <- shiny::renderPlot({
+      shiny::req(results())
+      res <- results()
+      ggplot2::ggplot(data.frame(x = res$bootstrap.stat.dist), ggplot2::aes(x)) +
+        ggplot2::geom_histogram(color = "black", fill = "white", bins = input$bins_stat) +
+        ggplot2::geom_vline(xintercept = c(res$ci.stat), color = "red", linetype = "dashed") +
+        ggplot2::geom_vline(xintercept = res$orig.stat, color = "blue") +
+        ggplot2::labs(x = "Bootstrap Distribution", y = "Frequency",
+                      title = "Histogram of Bootstrap Distribution of Test Statistic with Original Statistic and Confidence Intervals")
+    })
+
+    # Display result in a table for effect size
+    output$result_table_effect <- shiny::renderTable({
       shiny::req(results())
       res <- results()
       df_res <- data.frame(
         Effect_Size = res$effect.size,
         CI_Lower = res$ci.effect.size[1],
-        CI_Upper = res$ci.effect.size[2],
-        P_Value = res$p.value
+        CI_Upper = res$ci.effect.size[2]
       )
-      names(df_res) <- c("Effect Size", "CI (Lower)", "CI (Upper)", "P-value")
+      names(df_res) <- c("Effect Size", "CI (Lower)", "CI (Upper)")
       df_res
     }, row.names = FALSE)
 
-    # Display histogram and slider
-    output$histAndSlider <- shiny::renderUI({
-      shiny::req(results())
-      list(
-        shiny::plotOutput("hist"),
-        shiny::br(),  # Add a line break
-        shiny::sliderInput("bins", "Number of bins:", min = 10, max = 50, value = 30)
-      )
-    })
-
-    # Display histogram
-    output$hist <- shiny::renderPlot({
+    # Display histogram for effect size
+    output$hist_effect <- shiny::renderPlot({
       shiny::req(results())
       res <- results()
-      ggplot2::ggplot(data.frame(x = res$bootstrap.dist), ggplot2::aes(x)) +
-        ggplot2::geom_histogram(color = "black", fill = "white", bins = input$bins) +
+      ggplot2::ggplot(data.frame(x = res$bootstrap.effect.dist), ggplot2::aes(x)) +
+        ggplot2::geom_histogram(color = "black", fill = "white", bins = input$bins_effect) +
         ggplot2::geom_vline(xintercept = c(res$ci.effect.size), color = "red", linetype = "dashed") +
         ggplot2::geom_vline(xintercept = res$effect.size, color = "blue") +
         ggplot2::labs(x = "Bootstrap Distribution", y = "Frequency",
-                      title = "Histogram of Bootstrap Distribution with Effect Size and Confidence Intervals")
+                      title = "Histogram of Bootstrap Distribution of Effect Size with Original Effect Size and Confidence Intervals")
     })
   }
 
