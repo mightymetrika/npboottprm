@@ -14,7 +14,7 @@ nonparboot_app <- function(){
                   shiny::actionButton("run", "Run Test")
     ),
     shiny::column(width = 8, align="center",
-                  shiny::h3("Nonparametric Bootstrap Test"),
+                  shiny::h3("Nonparametric Bootstrap Test with Pooled Resampling"),
                   shiny::uiOutput("resultUI"),
                   shiny::uiOutput("histAndSliderUI")
     )
@@ -48,6 +48,8 @@ nonparboot_app <- function(){
         shiny::h3("Bootstrap Distribution of Test Statistic"),
         shiny::plotOutput("hist_stat"),
         shiny::sliderInput("bins_stat", "Number of bins:", min = 10, max = 50, value = 30),
+        shiny::br(),  # Add a line break
+        shiny::br(),  # Add a line break
         shiny::h3("Effect Size Results"),
         shiny::tableOutput("result_table_effect"),
         shiny::h3("Bootstrap Distribution of Effect Size"),
@@ -79,7 +81,7 @@ nonparboot_app <- function(){
         ggplot2::geom_vline(xintercept = c(res$ci.stat), color = "red", linetype = "dashed") +
         ggplot2::geom_vline(xintercept = res$orig.stat, color = "blue") +
         ggplot2::labs(x = "Bootstrap Distribution", y = "Frequency",
-                      title = "Histogram of Bootstrap Distribution of Test Statistic with Original Statistic and Confidence Intervals")
+                      title = "Histogram of Bootstrap Test Statistic Distribution: Original (Observed) Statistic and Bootstrap Confidence Intervals Indicated")
     })
 
     # Display result in a table for effect size
@@ -104,7 +106,7 @@ nonparboot_app <- function(){
         ggplot2::geom_vline(xintercept = c(res$ci.effect.size), color = "red", linetype = "dashed") +
         ggplot2::geom_vline(xintercept = res$effect.size, color = "blue") +
         ggplot2::labs(x = "Bootstrap Distribution", y = "Frequency",
-                      title = "Histogram of Bootstrap Distribution of Effect Size with Original Effect Size and Confidence Intervals")
+                      title = "Histogram of Bootstrap Effect Size Distribution: Original (Observed) Effect Size and Bootstrap Confidence Intervals Indicated")
     })
   }
 
