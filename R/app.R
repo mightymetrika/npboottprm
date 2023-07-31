@@ -1,6 +1,7 @@
 nonparboot_app <- function(){
   ui <- shiny::fluidPage(
-    shiny::column(width = 6,
+    theme = shinythemes::shinytheme("yeti"),
+    shiny::column(width = 4,
                   shiny::h3("Arguments"),
                   shiny::fileInput("file", "Upload CSV File", accept = c(".csv")),
                   shiny::tags$div(title = "Enter the name of the X Variable.",
@@ -12,12 +13,16 @@ nonparboot_app <- function(){
                                   shiny::textInput("grp", "Grouping Variable (optional)", placeholder = "Enter Grouping variable name here")),
                   shiny::numericInput("nboot", "Number of Bootstrap Resamples", value = 1000, min = 1),
                   shiny::numericInput("conf.level", "Confidence Level", value = 0.95, min = 0, max = 1),
-                  shiny::numericInput("seed", "Random Seed (optional)", value = NULL),
+                  shiny::numericInput("seed", "Random Seed (optional)", value = NA),
                   shiny::actionButton("run", "Run Test")
     ),
-    shiny::column(width = 6,
+    shiny::column(width = 8, align="center",
                   shiny::h3("Nonparametric Bootstrap Test"),
+                  shiny::br(),  # Add a line break
+                  shiny::br(),  # Add a line break
                   shiny::tableOutput("result_table"),
+                  shiny::br(),  # Add a line break
+                  shiny::br(),  # Add a line break
                   shiny::uiOutput("histAndSlider")
     )
   )
@@ -35,9 +40,10 @@ nonparboot_app <- function(){
     # Run test
     results <- shiny::eventReactive(input$run, {
       shiny::req(data())
+      seed <- if (!is.na(input$seed)) input$seed else NULL
       nonparboot(data(), x = input$x, y = if(input$test == 'pt') input$y else NULL,
                  grp = if(input$test != 'pt') input$grp else NULL, nboot = input$nboot,
-                 test = input$test, conf.level = input$conf.level, seed = if(is.null(input$seed)) NULL else input$seed)
+                 test = input$test, conf.level = input$conf.level, seed = seed)
     })
 
     # Display result in a table
@@ -59,6 +65,7 @@ nonparboot_app <- function(){
       shiny::req(results())
       list(
         shiny::plotOutput("hist"),
+        shiny::br(),  # Add a line break
         shiny::sliderInput("bins", "Number of bins:", min = 10, max = 50, value = 30)
       )
     })
