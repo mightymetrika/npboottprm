@@ -2,7 +2,7 @@
 % Please edit documentation in R/nonparboot.R
 \name{nonparboot}
 \alias{nonparboot}
-\title{Nonparametric Bootstrap Test for Small Sample Sizes}
+\title{Nonparametric Bootstrap Test with Pooled Resampling for Small Sample Sizes}
 \usage{
 nonparboot(
   data,

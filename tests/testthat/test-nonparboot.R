@@ -5,11 +5,6 @@ test_that("Test the nonparametric bootstrap t-test", {
                      nboot = 1000,
                      test = "t",
                      conf.level = 0.95)
-  # np_res$p.value
-  # np_res$effect.size
-  # np_res$ci.effect.size
-  # t.test(x = iris[iris$Species == "setosa",]$Sepal.Length,
-  #        y = iris[iris$Species == "versicolor",]$Sepal.Length)
 
   expect_equal(length(np_res), 4)
 })
@@ -21,12 +16,6 @@ test_that("Test the nonparametric bootstrap t-test", {
                      nboot = 1000,
                      test = "pt",
                      conf.level = 0.95)
-  # np_res$p.value
-  # np_res$effect.size
-  # np_res$ci.effect.size
-  # t.test(x = iris$Sepal.Length,
-  #        y = iris$Petal.Length,
-  #        paired = TRUE)
 
   expect_equal(length(np_res), 4)
 })
@@ -38,10 +27,6 @@ test_that("Test the nonparametric bootstrap F-test", {
                       nboot = 1000,
                       test = "F",
                       conf.level = 0.95)
-  # np_res$p.value
-  # np_res$effect.size
-  # np_res$ci.effect.size
-  # anova(lm(formula = Sepal.Length ~ Species, data = iris))
 
   expect_equal(length(np_res), 4)
 })
@@ -68,4 +53,3 @@ test_that("nonparboot function works correctly", {
   expect_type(res_f$ci.effect.size, "double")
   expect_type(res_f$bootstrap.dist, "double")
 })
-
