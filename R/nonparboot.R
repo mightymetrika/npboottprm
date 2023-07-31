@@ -1,9 +1,9 @@
 #' Nonparametric Bootstrap Test with Pooled Resampling for Small Sample Sizes
 #'
-#' This function performs a nonparametric bootstrap test for small sample sizes,
-#' as described in Dwivedi et al. (2017). It supports t-tests (independent and
-#' paired) and F-tests (one-way ANOVA), with a user-specified number of bootstrap
-#' resamples.
+#' This function performs a nonparametric bootstrap test with pooled resampling
+#' for small sample sizes, as described in Dwivedi et al. (2017). It supports
+#' t-tests (independent and paired) and F-tests (one-way ANOVA), with a
+#' user-specified number of bootstrap resamples.
 #'
 #' @param data A data frame containing the variables to be analyzed.
 #' @param x A character string specifying the column in 'data' to be used as the
