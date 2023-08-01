@@ -67,5 +67,5 @@ print(np_res$p.value)
 \references{
 Dwivedi AK, Mallawaarachchi I, Alvarado LA (2017). "Analysis of small sample size
 studies using nonparametric bootstrap test with pooled resampling method." Statistics
-in Medicine, 36 (14), 2187-2205. \doi{10.1002/sim.7263}
+in Medicine, 36 (14), 2187-2205. https://doi.org/10.1002/sim.7263
 }
