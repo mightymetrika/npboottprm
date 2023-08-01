@@ -1,0 +1,103 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# npboottprm
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of npboottprm is to provide a robust tool for conducting nonparametric bootstrap tests with pooled resampling. These tests are ideal for small sample sizes and include the independent t-test, paired t-test, and F-test. The package employs methods presented in [Dwivedi, Mallawaarachchi, and Alvarado (2017)](https://doi.org/10.1002/sim.7263). 
+
+## Installation
+
+To install the development version of npboottprm from GitHub, use the [devtools](https://devtools.r-lib.org/) package:
+
+```{r, eval=FALSE}
+# install.packages("devtools")
+devtools::install_github("mightymetrika/npboottprm")
+```
+
+## Nonparametric bootstrap t-test
+
+The following example demonstrates how to use the nonparboot() function to conduct an independent t-test.
+
+```{r}
+library(npboottprm)
+
+# Use the simulated data included in the package
+print(data_t)
+
+# Run the test
+res_t <- nonparboot(data = data_t,
+                    x = "x",
+                    grp = "grp",
+                    nboot = 1000,
+                    test = "t",
+                    conf.level = 0.95,
+                    seed = 183)
+
+# Print the results, excluding the bootstrap distributions
+print(res_t[!names(res_t) %in%
+              c("bootstrap.stat.dist", "bootstrap.effect.dist")])
+```
+
+
+## Nonparametric bootstrap paired t-test
+
+The following example demonstrates how to use the nonparboot() function to conduct a paired t-test.
+
+```{r}
+# Use the simulated data included in the package
+print(data_pt)
+
+# Run the test
+res_pt <- nonparboot(data = data_pt,
+                     x = "x",
+                     y = "y",
+                     nboot = 1000,
+                     test = "pt",
+                     conf.level = 0.95,
+                     seed = 166)
+
+# Print the results, excluding the bootstrap distributions
+print(res_pt[!names(res_pt) %in%
+               c("bootstrap.stat.dist", "bootstrap.effect.dist")])
+```
+
+
+## Nonparametric bootstrap F-test
+
+The following example demonstrates how to use the nonparboot() function to conduct an F-test.
+
+```{r}
+# Use the simulated data included in the package
+print(data_f)
+
+# Run the test
+res_f <- nonparboot(data = data_f,
+                    x = "x",
+                    grp = "grp",
+                    nboot = 1000,
+                    test = "F",
+                    conf.level = 0.95,
+                    seed = 397)
+
+# Print the results, excluding the bootstrap distributions
+print(res_f[!names(res_f) %in%
+              c("bootstrap.stat.dist", "bootstrap.effect.dist")])
+```
+
+
+Please note that the examples provided here use simulated data included in the package. When using this package with your own data, replace data_t, data_pt, and data_f with your own data frames, and adjust the x, y, and grp parameters as needed.
