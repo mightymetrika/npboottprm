@@ -136,8 +136,13 @@ bootstrap_t_sample <- function(x_val, y_val, grp_val, grp_sizes, pre_calc) {
   unique_grp <- unique(grp_val)
   group1 <- sample(x_val, size = grp_sizes[unique_grp[1]], replace = TRUE)
   group2 <- sample(x_val, size = grp_sizes[unique_grp[2]], replace = TRUE)
-  t_stat <- stats::t.test(group1, group2, var.equal = TRUE, na.rm = T)$statistic
-  diff_mean <- mean(group1) - mean(group2)
+  if (stats::sd(group1)==0 & stats::sd(group2)==0){
+    t_stat <- NA
+    diff_mean <- NA
+  } else {
+    t_stat <- stats::t.test(group1, group2, var.equal = TRUE, na.rm = T)$statistic
+    diff_mean <- mean(group1) - mean(group2)
+  }
   return(c(t_stat, diff_mean))
 }
 
@@ -165,8 +170,13 @@ bootstrap_pt_sample <- function(x_val, y_val, grp_val, grp_sizes, pre_calc) {
   all_vals <- c(x_val, y_val)
   group1 <- sample(all_vals, size = length(x_val), replace = TRUE)
   group2 <- sample(all_vals, size = length(x_val), replace = TRUE)
-  t_stat <- stats::t.test(group1, group2, paired = TRUE)$statistic
-  diff_mean <- mean(group1 - group2)
+  if (stats::sd(group1)==0 & stats::sd(group2)==0){
+    t_stat <- NA
+    diff_mean <- NA
+  } else {
+    t_stat <- stats::t.test(group1, group2, paired = TRUE)$statistic
+    diff_mean <- mean(group1 - group2)
+  }
   return(c(t_stat, diff_mean))
 }
 
@@ -189,17 +199,29 @@ bootstrap_pt_sample <- function(x_val, y_val, grp_val, grp_sizes, pre_calc) {
 #'
 #' @keywords internal
 bootstrap_f_sample <- function(x_val, y_val, grp_val, grp_sizes, pre_calc) {
-  val_boot <- c()
-  grp_boot <- c()
-  for (g in unique(grp_val)) {
-    group_sample <- sample(x_val, size = grp_sizes[g], replace = TRUE)
-    val_boot <- c(val_boot, group_sample)
-    grp_boot <- c(grp_boot, rep(g, grp_sizes[g]))
+  grp_unique <- unique(grp_val)
+
+  # Create bootstrap samples for each group
+  bootstrap_samples <- lapply(grp_unique, function(g) {
+    sample(x_val, size = grp_sizes[g], replace = TRUE)
+  })
+
+  # Check if the standard deviation of each group's bootstrap sample is zero
+  all_sd_zero <- all(sapply(bootstrap_samples, stats::sd) == 0)
+
+  if (all_sd_zero) {
+    return(c(NA, NA))
   }
+
+  val_boot <- unlist(bootstrap_samples)
+  grp_boot <- rep(grp_unique, times = sapply(bootstrap_samples, length))
+
   anova_boot <- stats::anova(stats::lm(val_boot ~ factor(grp_boot)))
   f_boot <- anova_boot$`F value`[1]
   df1_boot <- anova_boot$Df[1]
   df2_boot <- anova_boot$Df[2]
   eta2_boot <- f_boot * df1_boot / (f_boot * df1_boot + df2_boot)
+
   return(c(f_boot, eta2_boot))
 }
+
