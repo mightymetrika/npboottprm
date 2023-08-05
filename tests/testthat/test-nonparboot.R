@@ -66,3 +66,40 @@ test_that("nonparboot function works correctly", {
   expect_type(res_f$bootstrap.effect.dist, "double")
 
 })
+
+
+test_that("Test nonparboot 't' with missing values", {
+  np_res <- nonparboot(data_t_mi,
+                       x = "x",
+                       grp = "grp",
+                       nboot = 1000,
+                       test = "t",
+                       conf.level = 0.95,
+                       na_rm = TRUE)
+
+  expect_equal(length(np_res), 7)
+})
+
+test_that("Test nonparboot 'pt' with missing values", {
+  np_res <- nonparboot(data_pt_mi,
+                       x = "x",
+                       y = "y",
+                       nboot = 1000,
+                       test = "pt",
+                       conf.level = 0.95,
+                       na_rm = TRUE)
+
+  expect_equal(length(np_res), 7)
+})
+
+test_that("Test nonparboot 'F' with missing values", {
+  np_res <- nonparboot(data_f_mi,
+                       x = "x",
+                       grp = "grp",
+                       nboot = 1000,
+                       test = "F",
+                       conf.level = 0.95,
+                       na_rm = TRUE)
+
+  expect_equal(length(np_res), 7)
+})

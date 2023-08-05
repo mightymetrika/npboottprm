@@ -4,7 +4,7 @@
 \alias{bootstrap_t_sample}
 \title{Internal Bootstrap Sampling Function for T-tests}
 \usage{
-bootstrap_t_sample(x_val, y_val, grp_val, grp_sizes, pre_calc)
+bootstrap_t_sample(x_val, y_val, grp_val, grp_sizes, pre_calc, na_rm)
 }
 \arguments{
 \item{x_val}{A numeric vector of values from the primary variable.}
@@ -20,6 +20,9 @@ F-test).}
 
 \item{pre_calc}{A list containing pre-calculated statistics from the original
 data.}
+
+\item{na_rm}{Set na.rm in places where the original algorithms do not.
+Default is FALSE.}
 }
 \value{
 A numeric vector of length 2 containing the bootstrapped test statistic
