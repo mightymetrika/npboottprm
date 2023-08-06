@@ -30,6 +30,7 @@ nonparboot_app <- function(){
                   shiny::numericInput("nboot", "Number of Bootstrap Resamples", value = 1000, min = 1),
                   shiny::numericInput("conf.level", "Confidence Level", value = 0.95, min = 0, max = 1),
                   shiny::numericInput("seed", "Random Seed (optional)", value = NA),
+                  shiny::checkboxInput("na_rm", "Remove observations with missing values", value = FALSE),
                   shiny::actionButton("run", "Run Test")
     ),
     shiny::column(width = 8, align="center",
@@ -55,7 +56,8 @@ nonparboot_app <- function(){
       seed <- if (!is.na(input$seed)) input$seed else NULL
       nonparboot(data(), x = input$x, y = if(input$test == 'pt') input$y else NULL,
                  grp = if(input$test != 'pt') input$grp else NULL, nboot = input$nboot,
-                 test = input$test, conf.level = input$conf.level, seed = seed)
+                 test = input$test, conf.level = input$conf.level, seed = seed,
+                 na_rm = input$na_rm)
     })
 
     # Generate UI for results
