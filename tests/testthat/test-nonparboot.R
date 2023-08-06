@@ -103,3 +103,52 @@ test_that("Test nonparboot 'F' with missing values", {
 
   expect_equal(length(np_res), 7)
 })
+
+test_that("Test nonparboot 't' with missing group value", {
+
+  data_t_mig <- data_t
+  data_t_mig[3, 2] <- NA
+
+  np_res <- nonparboot(data_t_mig,
+                       x = "x",
+                       grp = "grp",
+                       nboot = 1000,
+                       test = "t",
+                       conf.level = 0.95,
+                       na_rm = TRUE)
+
+  expect_equal(length(np_res), 7)
+})
+
+test_that("Test nonparboot 'F' with missing group values", {
+  data_f_mig <- data_f
+  data_f_mig[3, 2] <- NA
+  np_res <- nonparboot(data_f_mig,
+                       x = "x",
+                       grp = "grp",
+                       nboot = 1000,
+                       test = "F",
+                       conf.level = 0.95,
+                       na_rm = TRUE)
+
+  expect_equal(length(np_res), 7)
+})
+
+test_that("Test nonparboot 't' with missing values fails when na_rm is FALSE", {
+  expect_error(nonparboot(data_t_mi,
+                       x = "x",
+                       grp = "grp",
+                       nboot = 1000,
+                       test = "t",
+                       conf.level = 0.95,
+                       na_rm = FALSE))
+})
+
+test_that("Test nonparboot 'F' fails when x is not a character", {
+  expect_error(nonparboot(data_f,
+                       x = 3,
+                       grp = "grp",
+                       nboot = 1000,
+                       test = "F",
+                       conf.level = 0.95))
+})

@@ -4,7 +4,7 @@
 \alias{bootstrap_pt_sample}
 \title{Internal Bootstrap Sampling Function for Paired T-tests}
 \usage{
-bootstrap_pt_sample(x_val, y_val, grp_val, grp_sizes, pre_calc, na_rm)
+bootstrap_pt_sample(x_val, y_val, grp_val, grp_sizes, pre_calc)
 }
 \arguments{
 \item{x_val}{A numeric vector of values from the primary variable.}
@@ -21,9 +21,6 @@ functions.}
 
 \item{pre_calc}{A list containing pre-calculated statistics from the original
 data.}
-
-\item{na_rm}{Set na.rm in places where the original algorithms do not.
-Default is FALSE.}
 }
 \value{
 A numeric vector of length 2 containing the bootstrapped test statistic

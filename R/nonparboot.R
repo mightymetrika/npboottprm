@@ -51,14 +51,14 @@ nonparboot <- function (data, x, y = NULL, grp = NULL, nboot,
                         test = c("t", "pt", "F"), conf.level = 0.95,
                         seed = NULL, na_rm = FALSE) {
   # Check parameters
-  stopifnot(is.data.frame(data))
-  stopifnot(is.character(x))
-  stopifnot(is.null(y) || is.character(y))
-  stopifnot(is.null(grp) || is.character(grp))
-  stopifnot(is.numeric(nboot) && length(nboot) == 1L && nboot > 0 && nboot == as.integer(nboot))
-  stopifnot(is.character(test) && length(test) == 1L && test %in% c("t", "pt", "F"))
-  stopifnot(is.numeric(conf.level) && length(conf.level) == 1L && conf.level > 0 && conf.level < 1)
-  stopifnot(is.null(seed) || (is.numeric(seed) && length(seed) == 1L && seed == as.integer(seed)))
+  stopifnot("data must be a data frame" = is.data.frame(data))
+  stopifnot("x must be a character string" = is.character(x))
+  stopifnot("y must be NULL or a character string" = is.null(y) || is.character(y))
+  stopifnot("grp must be NULL or a character string" = is.null(grp) || is.character(grp))
+  stopifnot("nboot must be a numeric integer greater than 0" = is.numeric(nboot) && length(nboot) == 1L && nboot > 0 && nboot == as.integer(nboot))
+  stopifnot("test must be a character string ('t', 'pt', or 'F')" = is.character(test) && length(test) == 1L && test %in% c("t", "pt", "F"))
+  stopifnot("conf.level must be a numeric value between 0 and 1" = is.numeric(conf.level) && length(conf.level) == 1L && conf.level > 0 && conf.level < 1)
+  stopifnot("seed must be NULL or a numeric integer" = is.null(seed) || (is.numeric(seed) && length(seed) == 1L && seed == as.integer(seed)))
 
   # Set seed
   if (!is.null(seed)) {
@@ -71,30 +71,34 @@ nonparboot <- function (data, x, y = NULL, grp = NULL, nboot,
   # Select appropriate bootstrap sampling function based on the test type
   if (test == "t") {
     sample_fun <- bootstrap_t_sample
-    x_val <- data[[x]]
-    grp_val <- data[[grp]]
+
+    # Remove NA values if na_rm is TRUE
+    list_val <- remove_na(na_rm, data[[x]], data[[grp]])
+    x_val <- list_val[[1]]
+    grp_val <- list_val[[2]]
+
     unique_grp <- unique(grp_val)
     grp_sizes <- table(grp_val)
-    pre_calc <- list(orig_stat = stats::t.test(x_val ~ grp_val, na.rm = na_rm)$statistic,
-                     orig_diff = mean(x_val[grp_val == unique_grp[1]], na.rm = na_rm) - mean(x_val[grp_val == unique_grp[2]], na.rm = na_rm))
+    pre_calc <- list(orig_stat = stats::t.test(x_val ~ grp_val)$statistic,
+                     orig_diff = mean(x_val[grp_val == unique_grp[1]]) - mean(x_val[grp_val == unique_grp[2]]))
     } else if (test == "pt") {
     sample_fun <- bootstrap_pt_sample
-    x_val <- data[[x]]
-    y_val <- data[[y]]
+
+    # Remove NA values if na_rm is TRUE
+    list_val <- remove_na(na_rm, data[[x]], data[[y]])
+    x_val <- list_val[[1]]
+    y_val <- list_val[[2]]
+
     n <- length(x_val)
-    pre_calc <- list(orig_stat = stats::t.test(x_val, y_val, paired = TRUE, na.rm = na_rm)$statistic,
-                     orig_diff = mean(x_val - y_val, na.rm = na_rm))
+    pre_calc <- list(orig_stat = stats::t.test(x_val, y_val, paired = TRUE)$statistic,
+                     orig_diff = mean(x_val - y_val))
     } else {  # test == "F"
       sample_fun <- bootstrap_f_sample
-      x_val <- data[[x]]
-      grp_val <- data[[grp]]
 
       # Remove NA values if na_rm is TRUE
-      if (na_rm == TRUE) {
-        na_idx <- is.na(x_val) | is.na(grp_val)
-        x_val <- x_val[!na_idx]
-        grp_val <- grp_val[!na_idx]
-      }
+      list_val <- remove_na(na_rm, data[[x]], data[[grp]])
+      x_val <- list_val[[1]]
+      grp_val <- list_val[[2]]
 
       grp_sizes <- table(grp_val)
       anova_orig <- stats::anova(stats::lm(x_val ~ grp_val))
@@ -104,7 +108,7 @@ nonparboot <- function (data, x, y = NULL, grp = NULL, nboot,
     }
 
   # Perform bootstrap resampling
-  bootstrap_results <- replicate(nboot, sample_fun(x_val, y_val, grp_val, grp_sizes, pre_calc, na_rm))
+  bootstrap_results <- replicate(nboot, sample_fun(x_val, y_val, grp_val, grp_sizes, pre_calc))
 
   # Extract the bootstrapped statistics and differences/effects
   stat_values <- bootstrap_results[1, ]
@@ -114,10 +118,10 @@ nonparboot <- function (data, x, y = NULL, grp = NULL, nboot,
   p_boot <- mean(abs(stat_values) >= abs(pre_calc$orig_stat), na.rm = TRUE)
 
   # Calculate the confidence interval for the test statistic
-  ci_stat <- stats::quantile(stat_values, c((1 - conf.level) / 2, 1 - (1 - conf.level) / 2), na.rm = na_rm)
+  ci_stat <- stats::quantile(stat_values, c((1 - conf.level) / 2, 1 - (1 - conf.level) / 2))
 
   # Calculate the confidence interval for the difference/effect
-  ci_diff <- stats::quantile(diff_values, c((1 - conf.level) / 2, 1 - (1 - conf.level) / 2), na.rm = na_rm)
+  ci_diff <- stats::quantile(diff_values, c((1 - conf.level) / 2, 1 - (1 - conf.level) / 2))
 
   return(list(p.value = p_boot, orig.stat = pre_calc$orig_stat,
               ci.stat = ci_stat, bootstrap.stat.dist = stat_values,
@@ -139,24 +143,21 @@ nonparboot <- function (data, x, y = NULL, grp = NULL, nboot,
 #'   F-test).
 #' @param pre_calc A list containing pre-calculated statistics from the original
 #'   data.
-#' @param na_rm Set na.rm in places where the original algorithms do not.
-#'   Default is FALSE.
 #'
 #' @return A numeric vector of length 2 containing the bootstrapped test statistic
 #'   and mean difference.
 #'
 #' @keywords internal
-bootstrap_t_sample <- function(x_val, y_val, grp_val, grp_sizes, pre_calc,
-                               na_rm) {
+bootstrap_t_sample <- function(x_val, y_val, grp_val, grp_sizes, pre_calc) {
   unique_grp <- unique(grp_val)
   group1 <- sample(x_val, size = grp_sizes[unique_grp[1]], replace = TRUE)
   group2 <- sample(x_val, size = grp_sizes[unique_grp[2]], replace = TRUE)
-  if (stats::sd(group1, na.rm = na_rm)==0 & stats::sd(group2, na.rm = na_rm)==0){
+  if (stats::sd(group1)==0 & stats::sd(group2)==0){
     t_stat <- NA
     diff_mean <- NA
   } else {
     t_stat <- stats::t.test(group1, group2, var.equal = TRUE, na.rm = T)$statistic
-    diff_mean <- mean(group1, na.rm = na_rm) - mean(group2, na.rm = na_rm)
+    diff_mean <- mean(group1) - mean(group2)
   }
   return(c(t_stat, diff_mean))
 }
@@ -176,23 +177,21 @@ bootstrap_t_sample <- function(x_val, y_val, grp_val, grp_sizes, pre_calc,
 #'   functions.
 #' @param pre_calc A list containing pre-calculated statistics from the original
 #'   data.
-#' @param na_rm Set na.rm in places where the original algorithms do not.
-#'   Default is FALSE.
 #'
 #' @return A numeric vector of length 2 containing the bootstrapped test statistic
 #'   and mean difference.
 #'
 #' @keywords internal
-bootstrap_pt_sample <- function(x_val, y_val, grp_val, grp_sizes, pre_calc, na_rm) {
+bootstrap_pt_sample <- function(x_val, y_val, grp_val, grp_sizes, pre_calc) {
   all_vals <- c(x_val, y_val)
   group1 <- sample(all_vals, size = length(x_val), replace = TRUE)
   group2 <- sample(all_vals, size = length(x_val), replace = TRUE)
-  if (stats::sd(group1, na.rm = na_rm)==0 & stats::sd(group2, na.rm = na_rm)==0){
+  if (stats::sd(group1)==0 & stats::sd(group2)==0){
     t_stat <- NA
     diff_mean <- NA
   } else {
-    t_stat <- stats::t.test(group1, group2, paired = TRUE, na.rm = na_rm)$statistic
-    diff_mean <- mean(group1 - group2, na.rm = na_rm)
+    t_stat <- stats::t.test(group1, group2, paired = TRUE)$statistic
+    diff_mean <- mean(group1 - group2)
   }
   return(c(t_stat, diff_mean))
 }
@@ -210,14 +209,12 @@ bootstrap_pt_sample <- function(x_val, y_val, grp_val, grp_sizes, pre_calc, na_r
 #' @param grp_sizes A table of group sizes.
 #' @param pre_calc A list containing pre-calculated statistics from the original
 #'   data.
-#' @param na_rm Set na.rm in places where the original algorithms do not.
-#'   Default is FALSE.
 #'
 #' @return A numeric vector of length 2 containing the bootstrapped test statistic
 #'   and the effect size.
 #'
 #' @keywords internal
-bootstrap_f_sample <- function(x_val, y_val, grp_val, grp_sizes, pre_calc, na_rm) {
+bootstrap_f_sample <- function(x_val, y_val, grp_val, grp_sizes, pre_calc) {
   grp_unique <- unique(grp_val)
 
   # Create bootstrap samples for each group
@@ -226,7 +223,7 @@ bootstrap_f_sample <- function(x_val, y_val, grp_val, grp_sizes, pre_calc, na_rm
   })
 
   # Check if the standard deviation of each group's bootstrap sample is zero
-  all_sd_zero <- all(sapply(bootstrap_samples, stats::sd, na.rm = na_rm) == 0)
+  all_sd_zero <- all(sapply(bootstrap_samples, stats::sd) == 0)
 
   if (all_sd_zero) {
     return(c(NA, NA))
@@ -234,13 +231,6 @@ bootstrap_f_sample <- function(x_val, y_val, grp_val, grp_sizes, pre_calc, na_rm
 
   val_boot <- unlist(bootstrap_samples)
   grp_boot <- rep(grp_unique, times = sapply(bootstrap_samples, length))
-
-  # Remove NA values if na_rm is TRUE
-  if (na_rm == TRUE) {
-    na_idx <- is.na(val_boot) | is.na(grp_boot)
-    val_boot <- val_boot[!na_idx]
-    grp_boot <- grp_boot[!na_idx]
-  }
 
   anova_boot <- stats::anova(stats::lm(val_boot ~ factor(grp_boot)))
 
@@ -250,4 +240,28 @@ bootstrap_f_sample <- function(x_val, y_val, grp_val, grp_sizes, pre_calc, na_rm
   eta2_boot <- f_boot * df1_boot / (f_boot * df1_boot + df2_boot)
 
   return(c(f_boot, eta2_boot))
+}
+
+#' Remove NA values from vectors
+#'
+#' This function removes NA values from a list of vectors. If na_rm is TRUE,
+#' it removes all NA values from the input vectors. Otherwise, it returns the
+#' input vectors unchanged.
+#'
+#' @param na_rm A logical value indicating whether to remove NA values.
+#' @param ... One or more vectors from which to remove NA values.
+#'
+#' @return A list of vectors with NA values removed (if `na_rm` is `TRUE`),
+#'   or the input vectors unchanged (if `na_rm` is `FALSE`).
+#'
+#' @keywords internal
+remove_na <- function(na_rm, ...) {
+  vectors <- list(...)
+  if (na_rm == TRUE) {
+    na_idx <- Reduce("|", lapply(vectors, is.na))
+    return(lapply(vectors, function(v) v[!na_idx]))
+  } else {
+    stopifnot("There are missing values in the vectors, but na_rm is FALSE. Please set na_rm to TRUE to remove missing values, or ensure that your vectors do not contain any missing values." = all(sapply(vectors, function(v) !any(is.na(v)))))
+    return(vectors)
+  }
 }
