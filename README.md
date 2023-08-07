@@ -9,10 +9,17 @@
 The goal of npboottprm is to provide a robust tool for conducting
 nonparametric bootstrap tests with pooled resampling. These tests are
 ideal for small sample sizes and include the independent t-test, paired
-t-test, and F-test. The package employs methods presented in [Dwivedi,
-Mallawaarachchi, and Alvarado (2017)](https://doi.org/10.1002/sim.7263).
+t-test, and F-test. The package employs methods presented in Dwivedi,
+Mallawaarachchi, and Alvarado (2017).
 
 ## Installation
+
+You can install the released version of npboottprm from
+[CRAN](https://CRAN.R-project.org):
+
+``` r
+install.packages("npboottprm")
+```
 
 To install the development version of npboottprm from GitHub, use the
 [devtools](https://devtools.r-lib.org/) package:
@@ -185,3 +192,9 @@ Please note that the examples provided here use simulated data included
 in the package. When using this package with your own data, replace
 data_t, data_pt, and data_f with your own data frames, and adjust the x,
 y, and grp parameters as needed.
+
+## References
+
+Dwivedi AK, Mallawaarachchi I, Alvarado LA (2017). “Analysis of small
+sample size studies using nonparametric bootstrap test with pooled
+resampling method.” Statistics in Medicine, 36 (14), 2187-2205.

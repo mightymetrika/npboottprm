@@ -5,3 +5,4 @@
 ^csvdatafiles$
 ^README\.Rmd$
 ^app\.R$
+^cran-comments\.md$
