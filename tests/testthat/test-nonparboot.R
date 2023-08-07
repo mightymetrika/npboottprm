@@ -152,3 +152,81 @@ test_that("Test nonparboot 'F' fails when x is not a character", {
                        test = "F",
                        conf.level = 0.95))
 })
+
+test_that("Test stopifnots", {
+  # data must be a data frame
+  expect_error(nonparboot(1,
+                          x = "x",
+                          grp = "grp",
+                          nboot = 1000,
+                          test = "t",
+                          conf.level = 0.95))
+  # x must be a character string
+  expect_error(nonparboot(data_t,
+                          x = 1,
+                          grp = "grp",
+                          nboot = 1000,
+                          test = "t",
+                          conf.level = 0.95))
+
+  # y must be NULL or a character string
+  expect_error(nonparboot(data_t,
+                          x = "x",
+                          y = 1,
+                          grp = "grp",
+                          nboot = 1000,
+                          test = "t",
+                          conf.level = 0.95))
+
+  # grp must be NULL or a character string
+  expect_error(nonparboot(data_t,
+                          x = "x",
+                          grp = 1,
+                          nboot = 1000,
+                          test = "t",
+                          conf.level = 0.95))
+
+  # nboot must be a numeric integer greater than 0
+  expect_error(nonparboot(data_t,
+                          x = "x",
+                          grp = "grp",
+                          nboot = 1.1,
+                          test = "t",
+                          conf.level = 0.95))
+
+  # test must be a character string ('t', 'pt', or 'F')
+  expect_error(nonparboot(data_t,
+                          x = "x",
+                          grp = "grp",
+                          nboot = 1000,
+                          test = "t-test",
+                          conf.level = 0.95))
+
+  # conf.level must be a numeric value between 0 and 1
+  expect_error(nonparboot(data_t,
+                          x = "x",
+                          grp = "grp",
+                          nboot = 1000,
+                          test = "t",
+                          conf.level = 1.1))
+
+  # seed must be NULL or numeric
+  expect_error(nonparboot(data_t,
+                          x = "x",
+                          grp = "grp",
+                          nboot = 1000,
+                          test = "t",
+                          conf.level = 0.95,
+                          seed = "NULL"))
+
+  # There are missing values in the vectors, but na_rm is FALSE. Please set na_rm
+  # to TRUE to remove missing values, or ensure that your vectors do not contain
+  # any missing values.
+  expect_error(nonparboot(data_t_mi,
+                          x = "x",
+                          grp = "grp",
+                          nboot = 1000,
+                          test = "t",
+                          conf.level = 0.95,
+                          na_rm = FALSE))
+})

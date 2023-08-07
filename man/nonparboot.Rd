@@ -39,11 +39,10 @@ respectively. Default is "t".}
 \item{conf.level}{A numeric value between 0 and 1 specifying the confidence
 level for confidence intervals. Default is 0.95.}
 
-\item{seed}{An optional integer value to set the seed for the random number
-generator, for reproducibility. Default is NULL (no seed).}
+\item{seed}{An optional value interpreted as an integer to set the seed for
+the random number generator, for reproducibility. Default is NULL (no seed).}
 
-\item{na_rm}{Set na.rm in places where the original algorithms do not.
-Default is FALSE.}
+\item{na_rm}{Remove observations with missing values. Default is FALSE.}
 }
 \value{
 A list with the following components:
