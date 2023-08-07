@@ -20,10 +20,9 @@
 #'   respectively. Default is "t".
 #' @param conf.level A numeric value between 0 and 1 specifying the confidence
 #'   level for confidence intervals. Default is 0.95.
-#' @param seed An optional integer value to set the seed for the random number
-#'   generator, for reproducibility. Default is NULL (no seed).
-#' @param na_rm Set na.rm in places where the original algorithms do not.
-#'   Default is FALSE.
+#' @param seed An optional value interpreted as an integer to set the seed for
+#'   the random number generator, for reproducibility. Default is NULL (no seed).
+#' @param na_rm Remove observations with missing values. Default is FALSE.
 #'
 #'
 #' @return A list with the following components:
@@ -58,7 +57,7 @@ nonparboot <- function (data, x, y = NULL, grp = NULL, nboot,
   stopifnot("nboot must be a numeric integer greater than 0" = is.numeric(nboot) && length(nboot) == 1L && nboot > 0 && nboot == as.integer(nboot))
   stopifnot("test must be a character string ('t', 'pt', or 'F')" = is.character(test) && length(test) == 1L && test %in% c("t", "pt", "F"))
   stopifnot("conf.level must be a numeric value between 0 and 1" = is.numeric(conf.level) && length(conf.level) == 1L && conf.level > 0 && conf.level < 1)
-  stopifnot("seed must be NULL or a numeric integer" = is.null(seed) || (is.numeric(seed) && length(seed) == 1L && seed == as.integer(seed)))
+  stopifnot("seed must be NULL or numeric" = is.null(seed) || (is.numeric(seed) && length(seed) == 1L))
 
   # Set seed
   if (!is.null(seed)) {
