@@ -34,6 +34,7 @@ Depends:
     R (>= 2.10)
 LazyData: true
 Imports: 
+    fGarch,
     ggplot2,
     MKinfer,
     shiny,
