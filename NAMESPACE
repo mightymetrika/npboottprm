@@ -2,3 +2,11 @@
 
 export(nonparboot)
 export(nonparboot_app)
+export(t2_replext_c1.1)
+export(t2_replext_c1.2)
+export(t2_replext_c2.1)
+export(t2_replext_c2.2)
+export(t2_replext_c3.1)
+export(t2_replext_c3.2)
+export(t2_replext_c4.1)
+export(t2_replext_c4.2)
