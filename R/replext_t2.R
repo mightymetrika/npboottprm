@@ -20,13 +20,13 @@
 #' @return A data frame with columns for each sample size pair (n1, n2) and the proportions of significant p-values for each test (ST, WT, NPBTT, WRST, PTT).
 #'
 #' @examples
-#' t2_replext_c1.1(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
+#' replext_t2_c1.1(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using nonparametric bootstrap test with pooled resampling method. Stat Med. 2017 Jun 30;36(14):2187-2205. doi: 10.1002/sim.7263. Epub 2017 Mar 9. PMID: 28276584.
 #'
 #' @export
-t2_replext_c1.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = NULL, Sk2 = NULL,
+replext_t2_c1.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = NULL, Sk2 = NULL,
                             n1 = c(3,4,5,6,7,8,9,10,15),
                             n2 = c(3,4,5,6,7,8,9,10,15),
                             n_simulations = 10000, nboot = 1000,
@@ -106,7 +106,7 @@ t2_replext_c1.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = NULL, Sk2 = NU
 
 #' Replicate and Extend Simulation Results from Table 2 Cell 1.2
 #'
-#' This function is a wrapper around `t2_replext_c1.1` and is specifically used
+#' This function is a wrapper around `replext_t2_c1.1` and is specifically used
 #' for replicating and extending the simulation results from Table 2 cell block 1.2
 #' of the paper by Dwivedi et al. (2017). It sets the standard deviation of the
 #' second group (`S2`) to 3 by default.
@@ -126,22 +126,22 @@ t2_replext_c1.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = NULL, Sk2 = NU
 #' @return A data frame with columns for each sample size pair (n1, n2) and the proportions of significant p-values for each test (ST, WT, NPBTT, WRST, PTT).
 #'
 #' @examples
-#' t2_replext_c1.2(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
+#' replext_t2_c1.2(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using nonparametric bootstrap test with pooled resampling method. Stat Med. 2017 Jun 30;36(14):2187-2205. doi: 10.1002/sim.7263. Epub 2017 Mar 9. PMID: 28276584.
 #'
-#' @seealso \code{\link{t2_replext_c1.1}}
+#' @seealso \code{\link{replext_t2_c1.1}}
 #'
 #' @export
-t2_replext_c1.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = NULL, Sk2 = NULL,
+replext_t2_c1.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = NULL, Sk2 = NULL,
                             n1 = c(3,4,5,6,7,8,9,10,15),
                             n2 = c(3,4,5,6,7,8,9,10,15),
                             n_simulations = 10000, nboot = 1000,
                             conf.level = 0.95) {
 
-  # Call the t2_replext_c1.1 function with modified S2 default
-  t2_replext_c1.1(M1, S1, M2, S2, Sk1, Sk2, n1, n2, n_simulations, nboot, conf.level)
+  # Call the replext_t2_c1.1 function with modified S2 default
+  replext_t2_c1.1(M1, S1, M2, S2, Sk1, Sk2, n1, n2, n_simulations, nboot, conf.level)
 }
 
 #' Replicate and Extend Simulation Results from Table 2 Cell 2.1
@@ -149,7 +149,7 @@ t2_replext_c1.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = NULL, Sk2 = NU
 #' This function is intended to replicate and extend the simulation results
 #' from Table 2 cell block 2.1 in the paper by Dwivedi et al. (2017). It is designed
 #' for scenarios with the same skewed distribution and equal variance in
-#' both groups. The function acts as a wrapper around `t2_replext_c1.1`, applying
+#' both groups. The function acts as a wrapper around `replext_t2_c1.1`, applying
 #' specific skewness parameters as required for the cell.
 #'
 #' @param M1 Mean for the first group, default is 5.
@@ -168,23 +168,23 @@ t2_replext_c1.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = NULL, Sk2 = NU
 #' of significant p-values for each test (ST, WT, NPBTT, WRST, PTT).
 #'
 #' @examples
-#' t2_replext_c2.1(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
+#' replext_t2_c2.1(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using
 #' nonparametric bootstrap test with pooled resampling method. Stat Med. 2017 Jun 30;36(14):2187-2205.
 #' doi: 10.1002/sim.7263. Epub 2017 Mar 9. PMID: 28276584.
 #'
-#' @seealso \code{\link{t2_replext_c1.1}}
+#' @seealso \code{\link{replext_t2_c1.1}}
 #'
 #' @export
-t2_replext_c2.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.8, Sk2 = 0.8,
+replext_t2_c2.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.8, Sk2 = 0.8,
                             n1 = c(3,4,5,6,7,8,9,10,15),
                             n2 = c(3,4,5,6,7,8,9,10,15),
                             n_simulations = 10000, nboot = 1000,
                             conf.level = 0.95) {
 
-  t2_replext_c1.1(M1, S1, M2, S2, Sk1, Sk2, n1, n2, n_simulations, nboot, conf.level)
+  replext_t2_c1.1(M1, S1, M2, S2, Sk1, Sk2, n1, n2, n_simulations, nboot, conf.level)
 }
 
 #' Replicate and Extend Simulation Results from Table 2 Cell 2.2
@@ -192,7 +192,7 @@ t2_replext_c2.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.8, Sk2 = 0.8
 #' This function is designed to replicate and extend the simulation results
 #' from Table 2 cell block 2.2 of the paper by Dwivedi et al. (2017). It handles
 #' scenarios with same skewed distribution but with different variances in
-#' the two groups. The function is a wrapper around `t2_replext_c1.1`, setting
+#' the two groups. The function is a wrapper around `replext_t2_c1.1`, setting
 #' specific skewness and variance parameters as per the cell's requirements.
 #'
 #' @param M1 Mean for the first group, default is 5.
@@ -210,21 +210,21 @@ t2_replext_c2.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.8, Sk2 = 0.8
 #' @return A data frame with columns for each sample size pair (n1, n2) and the proportions of significant p-values for each test (ST, WT, NPBTT, WRST, PTT).
 #'
 #' @examples
-#' t2_replext_c2.2(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
+#' replext_t2_c2.2(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using nonparametric bootstrap test with pooled resampling method. Stat Med. 2017 Jun 30;36(14):2187-2205. doi: 10.1002/sim.7263. Epub 2017 Mar 9. PMID: 28276584.
 #'
-#' @seealso \code{\link{t2_replext_c1.1}}
+#' @seealso \code{\link{replext_t2_c1.1}}
 #'
 #' @export
-t2_replext_c2.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = 0.8, Sk2 = 0.8,
+replext_t2_c2.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = 0.8, Sk2 = 0.8,
                             n1 = c(3,4,5,6,7,8,9,10,15),
                             n2 = c(3,4,5,6,7,8,9,10,15),
                             n_simulations = 10000, nboot = 1000,
                             conf.level = 0.95) {
 
-  t2_replext_c1.1(M1, S1, M2, S2, Sk1, Sk2, n1, n2, n_simulations, nboot, conf.level)
+  replext_t2_c1.1(M1, S1, M2, S2, Sk1, Sk2, n1, n2, n_simulations, nboot, conf.level)
 }
 
 #' Replicate and Extend Simulation Results from Table 2 Cell 3.1
@@ -232,7 +232,7 @@ t2_replext_c2.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = 0.8, Sk2 = 0.8
 #' This function is designed to replicate and extend the simulation results
 #' from Table 2 cell block 3.1 of the paper by Dwivedi et al. (2017). It handles
 #' scenarios with different skewed distributions but equal variance in the
-#' two groups. The function is a wrapper around `t2_replext_c1.1`, setting
+#' two groups. The function is a wrapper around `replext_t2_c1.1`, setting
 #' specific skewness parameters as per the cell's requirements.
 #'
 #' @param M1 Mean for the first group, default is 5.
@@ -250,21 +250,21 @@ t2_replext_c2.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = 0.8, Sk2 = 0.8
 #' @return A data frame with columns for each sample size pair (n1, n2) and the proportions of significant p-values for each test (ST, WT, NPBTT, WRST, PTT).
 #'
 #' @examples
-#' t2_replext_c3.1(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
+#' replext_t2_c3.1(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using nonparametric bootstrap test with pooled resampling method. Stat Med. 2017 Jun 30;36(14):2187-2205. doi: 10.1002/sim.7263. Epub 2017 Mar 9. PMID: 28276584.
 #'
-#' @seealso \code{\link{t2_replext_c1.1}}
+#' @seealso \code{\link{replext_t2_c1.1}}
 #'
 #' @export
-t2_replext_c3.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.8, Sk2 = 1.0,
+replext_t2_c3.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.8, Sk2 = 1.0,
                             n1 = c(3,4,5,6,7,8,9,10,15),
                             n2 = c(3,4,5,6,7,8,9,10,15),
                             n_simulations = 10000, nboot = 1000,
                             conf.level = 0.95) {
 
-  t2_replext_c1.1(M1, S1, M2, S2, Sk1, Sk2, n1, n2, n_simulations, nboot, conf.level)
+  replext_t2_c1.1(M1, S1, M2, S2, Sk1, Sk2, n1, n2, n_simulations, nboot, conf.level)
 }
 
 #' Replicate and Extend Simulation Results from Table 2 Cell 3.2
@@ -272,7 +272,7 @@ t2_replext_c3.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.8, Sk2 = 1.0
 #' This function aims to replicate and extend the simulation results from Table 2
 #' cell block 3.2 in the paper by Dwivedi et al. (2017). It is tailored for scenarios
 #' with different skewed distributions and unequal variance between the two groups.
-#' The function serves as a wrapper around `t2_replext_c1.1`, utilizing specific
+#' The function serves as a wrapper around `replext_t2_c1.1`, utilizing specific
 #' skewness parameters and variances as described in the cell.
 #'
 #' @param M1 Mean for the first group, default is 5.
@@ -291,23 +291,23 @@ t2_replext_c3.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.8, Sk2 = 1.0
 #' of significant p-values for each test (ST, WT, NPBTT, WRST, PTT).
 #'
 #' @examples
-#' t2_replext_c3.2(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
+#' replext_t2_c3.2(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using
 #' nonparametric bootstrap test with pooled resampling method. Stat Med. 2017 Jun 30;36(14):2187-2205.
 #' doi: 10.1002/sim.7263. Epub 2017 Mar 9. PMID: 28276584.
 #'
-#' @seealso \code{\link{t2_replext_c1.1}}
+#' @seealso \code{\link{replext_t2_c1.1}}
 #'
 #' @export
-t2_replext_c3.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = 0.8, Sk2 = 1.0,
+replext_t2_c3.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = 0.8, Sk2 = 1.0,
                             n1 = c(3,4,5,6,7,8,9,10,15),
                             n2 = c(3,4,5,6,7,8,9,10,15),
                             n_simulations = 10000, nboot = 1000,
                             conf.level = 0.95) {
 
-  t2_replext_c1.1(M1, S1, M2, S2, Sk1, Sk2, n1, n2, n_simulations, nboot, conf.level)
+  replext_t2_c1.1(M1, S1, M2, S2, Sk1, Sk2, n1, n2, n_simulations, nboot, conf.level)
 }
 
 #' Replicate and Extend Simulation Results from Table 2 Cell 4.1
@@ -315,7 +315,7 @@ t2_replext_c3.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = 0.8, Sk2 = 1.0
 #' This function is designed to replicate and extend the simulation results
 #' from Table 2 cell block 4.1 of the paper by Dwivedi et al. (2017). It addresses
 #' scenarios with unequal sample sizes but the same skewed distribution and equal
-#' variance in both groups. The function acts as a wrapper around `t2_replext_c1.1`,
+#' variance in both groups. The function acts as a wrapper around `replext_t2_c1.1`,
 #' setting specific skewness parameters and sample sizes as per the cell's requirements.
 #'
 #' @param M1 Mean for the first group, default is 5.
@@ -334,23 +334,23 @@ t2_replext_c3.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = 0.8, Sk2 = 1.0
 #' of significant p-values for each test (ST, WT, NPBTT, WRST, PTT).
 #'
 #' @examples
-#' t2_replext_c4.1(n1 = c(4,5), n2 = c(2,3), n_simulations = 5)
+#' replext_t2_c4.1(n1 = c(4,5), n2 = c(2,3), n_simulations = 5)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using
 #' nonparametric bootstrap test with pooled resampling method. Stat Med. 2017 Jun 30;36(14):2187-2205.
 #' doi: 10.1002/sim.7263. Epub 2017 Mar 9. PMID: 28276584.
 #'
-#' @seealso \code{\link{t2_replext_c1.1}}
+#' @seealso \code{\link{replext_t2_c1.1}}
 #'
 #' @export
-t2_replext_c4.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.8, Sk2 = 0.8,
+replext_t2_c4.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.8, Sk2 = 0.8,
                             n1 = c(4,3,5,4,6,4,3,4,5,6),
                             n2 = c(2,4,3,5,3,6,7,11,10,9),
                             n_simulations = 10000, nboot = 1000,
                             conf.level = 0.95) {
 
-  t2_replext_c1.1(M1, S1, M2, S2, Sk1, Sk2, n1, n2, n_simulations, nboot, conf.level)
+  replext_t2_c1.1(M1, S1, M2, S2, Sk1, Sk2, n1, n2, n_simulations, nboot, conf.level)
 }
 
 #' Replicate and Extend Simulation Results from Table 2 Cell 4.2
@@ -359,7 +359,7 @@ t2_replext_c4.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.8, Sk2 = 0.8
 #' from Table 2 cell block 4.2 in the paper by Dwivedi et al. (2017). It is tailored
 #' for scenarios with unequal sample sizes, same skewed distribution, but
 #' different variances between the two groups. The function acts as a wrapper
-#' around `t2_replext_c1.1`, setting specific skewness parameters, variances,
+#' around `replext_t2_c1.1`, setting specific skewness parameters, variances,
 #' and sample sizes as described in the cell.
 #'
 #' @param M1 Mean for the first group, default is 5.
@@ -378,21 +378,21 @@ t2_replext_c4.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.8, Sk2 = 0.8
 #' of significant p-values for each test (ST, WT, NPBTT, WRST, PTT).
 #'
 #' @examples
-#' t2_replext_c4.2(n1 = c(4,5), n2 = c(2,3), n_simulations = 5)
+#' replext_t2_c4.2(n1 = c(4,5), n2 = c(2,3), n_simulations = 5)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using
 #' nonparametric bootstrap test with pooled resampling method. Stat Med. 2017 Jun 30;36(14):2187-2205.
 #' doi: 10.1002/sim.7263. Epub 2017 Mar 9. PMID: 28276584.
 #'
-#' @seealso \code{\link{t2_replext_c1.1}}
+#' @seealso \code{\link{replext_t2_c1.1}}
 #'
 #' @export
-t2_replext_c4.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = 0.8, Sk2 = 0.8,
+replext_t2_c4.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = 0.8, Sk2 = 0.8,
                             n1 = c(4,3,5,4,6,4,3,4,5,6),
                             n2 = c(2,4,3,5,3,6,7,11,10,9),
                             n_simulations = 10000, nboot = 1000,
                             conf.level = 0.95) {
 
-  t2_replext_c1.1(M1, S1, M2, S2, Sk1, Sk2, n1, n2, n_simulations, nboot, conf.level)
+  replext_t2_c1.1(M1, S1, M2, S2, Sk1, Sk2, n1, n2, n_simulations, nboot, conf.level)
 }
