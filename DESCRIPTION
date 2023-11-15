@@ -36,6 +36,8 @@ LazyData: true
 Imports: 
     fGarch,
     ggplot2,
+    MASS,
     MKinfer,
     shiny,
-    shinythemes
+    shinythemes,
+    sn
