@@ -89,22 +89,6 @@ replext_t4_c1.1 <- function(rdist = "rlnorm", par1_1 = 1, par2_1 = 0.6,
 
       F1 <- generate_data(n1, get_dist_type(1), par1_1, par2_1)
       F2 <- generate_data(n2, get_dist_type(2), par1_2, par2_2)
-#
-#       if (rdist == "rlnorm") {
-#         stats::rlnorm(n, par1, par2)
-#       } else if (rdist == "rpois"){
-#         stats::rpois(n, par1)
-#       } else if (rdist == "rchisq"){
-#         stats::rchisq(n, par1, par2)
-#       } else if (rdist == "rcauchy"){
-#         stats::rcauchy(n, par1, par2)
-#       } else {
-#         stop("rdist must be one of 'rlnorm', 'rpois', 'rchisq', or 'rcauchy'")
-#       }
-#     }
-#
-#     F1 <- generate_data(n1, par1_1, par2_1)
-#     F2 <- generate_data(n2, par1_2, par2_2)
 
     df <- data.frame(x = c(F1, F2), grp = rep(c("F1", "F2"), c(n1, n2)))
 
