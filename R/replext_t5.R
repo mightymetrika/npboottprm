@@ -32,7 +32,7 @@
 #' @export
 replext_t5_c1.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0, Sk2 = 0,
                             correl = 0.8,
-                            n = c(3,4,5,6,7,8,9,10,15, 25),
+                            n = c(3,4,5,6,7,8,9,10,15,25),
                             n_simulations = 10000, nboot = 1000,
                             conf.level = 0.95){
 
@@ -137,7 +137,7 @@ replext_t5_c1.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0, Sk2 = 0,
 #' @export
 replext_t5_c1.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = 0, Sk2 = 0,
                             correl = 0.8,
-                            n = c(3,4,5,6,7,8,9,10,15, 25),
+                            n = c(3,4,5,6,7,8,9,10,15,25),
                             n_simulations = 10000, nboot = 1000,
                             conf.level = 0.95){
 
@@ -180,7 +180,7 @@ replext_t5_c1.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = 0, Sk2 = 0,
 #' @export
 replext_t5_c1.3 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.5, Sk2 = 0.5,
                             correl = 0.8,
-                            n = c(3,4,5,6,7,8,9,10,15, 25),
+                            n = c(3,4,5,6,7,8,9,10,15,25),
                             n_simulations = 10000, nboot = 1000,
                             conf.level = 0.95){
 
@@ -224,7 +224,7 @@ replext_t5_c1.3 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.5, Sk2 = 0.5
 #' @export
 replext_t5_c2.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = 0.5, Sk2 = 0.5,
                             correl = 0.8,
-                            n = c(3,4,5,6,7,8,9,10,15, 25),
+                            n = c(3,4,5,6,7,8,9,10,15,25),
                             n_simulations = 10000, nboot = 1000,
                             conf.level = 0.95){
 
@@ -268,7 +268,7 @@ replext_t5_c2.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = 0.5, Sk2 = 0.5
 #' @export
 replext_t5_c2.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.2, Sk2 = 0.8,
                             correl = 0.8,
-                            n = c(3,4,5,6,7,8,9,10,15, 25),
+                            n = c(3,4,5,6,7,8,9,10,15,25),
                             n_simulations = 10000, nboot = 1000,
                             conf.level = 0.95){
 
@@ -312,7 +312,7 @@ replext_t5_c2.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.2, Sk2 = 0.8
 #' @export
 replext_t5_c2.3 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = 0.2, Sk2 = 0.8,
                             correl = 0.8,
-                            n = c(3,4,5,6,7,8,9,10,15, 25),
+                            n = c(3,4,5,6,7,8,9,10,15,25),
                             n_simulations = 10000, nboot = 1000,
                             conf.level = 0.95){
 
