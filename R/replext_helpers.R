@@ -709,26 +709,66 @@ getUIParams <- function(cellBlock) {
          )
 }
 
+appendInputParams <- function(df, input) {
+  # Generate a unique code for the simulation run
+  run_code <- paste(sample(letters, 10, replace = TRUE), collapse = "")
+
+  # Create a data frame of input parameters
+  if (grepl("^replext_t2_", input$cellBlock) || grepl("^replext_t3_", input$cellBlock)) {
+    params_df <- data.frame(
+      M1 = input$M1, S1 = input$S1, M2 = input$M2, S2 = input$S2,
+      Sk1 = input$Sk1, Sk2 = input$Sk2, n1 = input$n1, n2 = input$n2,
+      n_simulations = input$n_simulations, nboot = input$nboot,
+      conf.level = input$conf.level, Seed = input$seed, RunCode = run_code,
+      stringsAsFactors = FALSE
+    )
+  } else if (grepl("^replext_t4_", input$cellBlock) || grepl("^replext_ts1_", input$cellBlock)) {
+    params_df <- data.frame(
+      rdist = text_to_char_vector(input$rdist), par1_1 = input$par1_1, par2_1 = handle_null(input$par2_1),
+      par1_2 = input$par1_2, par2_2 = handle_null(input$par2_2),
+      n1 = text_to_vector(input$n1),
+      n2 = text_to_vector(input$n2),
+      n_simulations = input$n_simulations, nboot = input$nboot,
+      conf.level = input$conf.level, Seed = input$seed, RunCode = run_code,
+      stringsAsFactors = FALSE
+    )
+  } else if (grepl("^replext_t5_", input$cellBlock) || grepl("^replext_t6_", input$cellBlock)) {
+    params_df <- data.frame(
+      M1 = input$M1, S1 = input$S1, M2 = input$M2, S2 = input$S2,
+      Sk1 = handle_null(input$Sk1), Sk2 = handle_null(input$Sk2),
+      correl = input$correl, n = text_to_vector(input$n),
+      n_simulations = input$n_simulations, nboot = input$nboot,
+      conf.level = input$conf.level, Seed = input$seed, RunCode = run_code,
+      stringsAsFactors = FALSE
+    )
+  } else if (grepl("^replext_ts2_", input$cellBlock) || grepl("^replext_ts3_", input$cellBlock)) {
+    params_df <- data.frame(
+      M1 = input$M1, S1 = input$S1, M2 = input$M2, S2 = input$S2,
+      M3 = input$M3, S3 = input$S3,
+      Sk1 = handle_null(input$Sk1), Sk2 = handle_null(input$Sk2),
+      Sk3 = handle_null(input$Sk3),
+      n1 = text_to_vector(input$n1), n2 = text_to_vector(input$n2),
+      n3 = text_to_vector(input$n3),
+      n_simulations = input$n_simulations, nboot = input$nboot,
+      conf.level = input$conf.level, Seed = input$seed, RunCode = run_code,
+      stringsAsFactors = FALSE
+    )
+  } else {
+    stop("Must select a supported cell block")
+  }
+
+  # Repeat the parameters data frame to match the number of rows in df
+  params_df <- params_df[rep(1, nrow(df)), ]
+
+  # Combine with the simulation results
+  cbind(df, params_df)
+}
+
 runSimulation <- function(input) {
-  # Helper functions for specific processing
 
-  # Function for handling null values
-  handle_null <- function(par_input = "") {
-    if (is.na(par_input) || par_input == "") {
-      return(NULL)
-    } else {
-      return(as.numeric(par_input))
-    }
-  }
-
-  # Function for handling numeric vector input
-  text_to_vector <- function(text_input) {
-    as.numeric(unlist(strsplit(text_input, ",")))
-  }
-
-  # Function for handling character vector input
-  text_to_char_vector <- function(text_input) {
-    strsplit(trimws(text_input), ",")[[1]]
+  # Set the seed if provided
+  if (!is.na(input$seed) && input$seed > 0) {
+    set.seed(input$seed)
   }
 
   # Dynamically call the appropriate function based on the cell block prefix
@@ -766,3 +806,22 @@ runSimulation <- function(input) {
 
 }
 
+
+# Function for handling null values
+handle_null <- function(par_input = "") {
+  if (is.na(par_input) || par_input == "") {
+    return(NULL)
+  } else {
+    return(as.numeric(par_input))
+  }
+}
+
+# Function for handling numeric vector input
+text_to_vector <- function(text_input) {
+  as.numeric(unlist(strsplit(text_input, ",")))
+}
+
+# Function for handling character vector input
+text_to_char_vector <- function(text_input) {
+  strsplit(trimws(text_input), ",")[[1]]
+}
