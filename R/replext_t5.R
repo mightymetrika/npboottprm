@@ -66,7 +66,6 @@ replext_t5_c1.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0, Sk2 = 0,
       stats::t.test(x = df$F1, y = df$F2, paired = TRUE, var.equal = TRUE)$p.value <= 1 - conf.level
     }, error = function(e) NA)
 
-
     wrst <- tryCatch({
       stats::wilcox.test(x = df$F1, y = df$F2, paired = TRUE, exact = TRUE)$p.value <= 1 - conf.level
     }, error = function(e) NA)

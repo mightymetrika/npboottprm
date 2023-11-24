@@ -1,3 +1,36 @@
+#' Replext Simulation Shiny App
+#'
+#' This application attempts to replicate and extend the simulation results from
+#' the paper by Dwivedi et al. (2017). The application includes a user interface
+#' for selecting simulation parameters and a server logic to process the simulation
+#' and handle user interactions.
+#'
+#' @details
+#' The app's user interface consists of:
+#' - A numeric input for setting an optional random number seed.
+#' - A dropdown menu to select a cell block for the simulation, which is
+#'   populated using the `getCellBlocks` function.
+#' - Dynamic UI elements for inputting simulation parameters, generated
+#'   based on the selected cell block.
+#' - A button to run the simulation.
+#' - A download button to export the simulation results.
+#'
+#' The server logic of the app handles:
+#' - Rendering the dynamic UI elements for simulation parameters.
+#' - Observing the simulation run event and processing the simulation
+#'   using the `runSimulation` function.
+#' - Rendering a table to display the simulation results.
+#' - Handling the data download request and exporting the results as a CSV file.
+#'
+#' @references
+#' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using nonparametric bootstrap test with pooled resampling method. Stat Med. 2017 Jun 30;36(14):2187-2205. doi: 10.1002/sim.7263. Epub 2017 Mar 9. PMID: 28276584.
+#'
+#' @examples
+#' if(interactive()){
+#'   replext()
+#' }
+#'
+#' @export
 replext <- function() {
 
   # Define the UI
