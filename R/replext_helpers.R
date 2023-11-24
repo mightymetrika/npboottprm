@@ -1,3 +1,15 @@
+#' Generate a List of Available Cell Blocks
+#'
+#' This function creates and returns a named list of cell blocks,
+#' where each name corresponds to a descriptive label of the cell block,
+#' and the value is the function name associated with that cell block.
+#'
+#' @return A named list where each name is a string describing a cell block
+#' (e.g., "T2 Cell Block 1.1") and each value is a string corresponding
+#' to the function name (e.g., "replext_t2_c1.1") that is associated with
+#' the simulation process for that particular cell block.
+#'
+#' @keywords internal
 getCellBlocks <- function(){
   list("T2 Cell Block 1.1" = "replext_t2_c1.1",
        "T2 Cell Block 1.2" = "replext_t2_c1.2",
@@ -55,6 +67,20 @@ getCellBlocks <- function(){
        "TS3 Cell Block 4.2" = "replext_ts3_c4.2")
 }
 
+#' Generate UI Elements for Selected Cell Block
+#'
+#' This function generates a dynamic user interface (UI) for the Shiny app based on the selected cell block.
+#' It creates a list of Shiny UI elements, such as numeric inputs and text inputs,
+#' tailored to the requirements of the chosen cell block.
+#'
+#' @param cellBlock A character string identifying the selected cell block.
+#'                  The function uses this parameter to determine which set of UI elements to generate.
+#'
+#' @return A list of Shiny UI elements specific to the selected cell block.
+#'         These UI elements include numeric inputs, text inputs, and other relevant controls
+#'         required to capture user inputs for simulation parameters.
+#'
+#' @keywords internal
 getUIParams <- function(cellBlock) {
   switch(cellBlock,
          "replext_t2_c1.1" = list(shiny::numericInput("M1", "Mean for the first group:", 5),
@@ -709,6 +735,19 @@ getUIParams <- function(cellBlock) {
          )
 }
 
+#' Append Input Parameters to Data Frame
+#'
+#' This internal function appends the input parameters and a unique run code to the data frame of simulation results.
+#' It creates a comprehensive data frame that includes both the results and the parameters used for the simulation,
+#' facilitating easier tracking and analysis of the simulation runs.
+#'
+#' @param df A data frame containing the simulation results.
+#' @param input A list of input parameters used in the simulation, typically sourced from the Shiny app's user inputs.
+#'
+#' @return A data frame that combines the original simulation results with the input parameters used in the simulation.
+#'         Additionally, a unique run code is generated and appended to each row for identification purposes.
+#'
+#' @keywords internal
 appendInputParams <- function(df, input) {
   # Generate a unique code for the simulation run
   run_code <- paste(sample(letters, 10, replace = TRUE), collapse = "")
@@ -764,6 +803,20 @@ appendInputParams <- function(df, input) {
   cbind(df, params_df)
 }
 
+#' Execute Simulation Based on User Inputs
+#'
+#' This internal function manages the simulation process in a Shiny app environment.
+#' It dynamically selects the appropriate simulation function based on the selected cell block
+#' and passes user inputs to this function. The function also handles the setting of a random
+#' number seed, if provided, to ensure reproducibility of results.
+#'
+#' @param input A list of inputs gathered from the Shiny app's UI, including the selected
+#'        cell block and other parameters necessary for the simulation.
+#'
+#' @return The result of the simulation function that corresponds to the selected cell block.
+#'         This result is typically a data frame containing the outcomes of the simulation.
+#'
+#' @keywords internal
 runSimulation <- function(input) {
 
   # Set the seed if provided
@@ -807,7 +860,20 @@ runSimulation <- function(input) {
 }
 
 
-# Function for handling null values
+#' Handle NULL or Empty Input Parameters
+#'
+#' This internal function is used to process input parameters in a Shiny app.
+#' It checks if the provided parameter is `NA` or an empty string and accordingly
+#' returns `NULL` or converts it to a numeric value. This function ensures that
+#' simulation functions receive properly formatted parameters.
+#'
+#' @param par_input An input parameter that could be `NA` or an empty string,
+#'        typically a user input from the Shiny app's UI. Default is an empty string.
+#'
+#' @return `NULL` if the input parameter is `NA` or an empty string;
+#'         otherwise, the numeric value of the input parameter.
+#'
+#' @keywords internal
 handle_null <- function(par_input = "") {
   if (is.na(par_input) || par_input == "") {
     return(NULL)
@@ -816,12 +882,40 @@ handle_null <- function(par_input = "") {
   }
 }
 
-# Function for handling numeric vector input
+#' Convert Comma-Separated String to Numeric Vector
+#'
+#' This internal function takes a string of comma-separated values and
+#' converts it into a numeric vector. It is typically used to process
+#' user inputs from the Shiny app's UI where multiple values can be
+#' entered as a single string.
+#'
+#' @param text_input A string containing comma-separated values,
+#'        typically a user input from the Shiny app's UI.
+#'
+#' @return A numeric vector converted from the comma-separated string.
+#'         If the input is an empty string, returns an empty numeric vector.
+#'
+#' @keywords internal
 text_to_vector <- function(text_input) {
   as.numeric(unlist(strsplit(text_input, ",")))
 }
 
-# Function for handling character vector input
+#' Convert Comma-Separated String to Character Vector
+#'
+#' This internal function takes a string of comma-separated values and
+#' converts it into a character vector. It is used to process user inputs
+#' from the Shiny app's UI, particularly when these inputs need to be
+#' retained as character data.
+#'
+#' @param text_input A string containing comma-separated values,
+#'        typically user input from the Shiny app's UI. The function
+#'        trims leading and trailing whitespace before processing.
+#'
+#' @return A character vector converted from the comma-separated string.
+#'         If the input is an empty string or consists only of whitespace,
+#'         returns an empty character vector.
+#'
+#' @keywords internal
 text_to_char_vector <- function(text_input) {
   strsplit(trimws(text_input), ",")[[1]]
 }
