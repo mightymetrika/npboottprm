@@ -53,7 +53,7 @@ between the two groups. It utilizes \code{replext_t2_c1.1} with adjusted skewnes
 means, and specific sample sizes.
 }
 \examples{
-replext_t3_c4.1(n1 = c(4,5), n2 = c(2,3), n_simulations = 5)
+replext_t3_c4.1(n1 = c(4), n2 = c(3), n_simulations = 1)
 
 }
 \references{

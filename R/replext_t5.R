@@ -22,7 +22,7 @@
 #'         the proportions of significant p-values for each test (PT, NPBTT, WRST, PTT).
 #'
 #' @examples
-#' replext_t5_c1.1(n = c(5, 10), n_simulations = 5)
+#' replext_t5_c1.1(n = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -126,7 +126,7 @@ replext_t5_c1.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0, Sk2 = 0,
 #'         similar to 'replext_t5_c1.1' but with differing standard deviations for the groups.
 #'
 #' @examples
-#' replext_t5_c1.2(n = c(5, 10), n_simulations = 5)
+#' replext_t5_c1.2(n = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -169,7 +169,7 @@ replext_t5_c1.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = 0, Sk2 = 0,
 #'         similar to 'replext_t5_c1.1' but with skewness parameters for the groups.
 #'
 #' @examples
-#' replext_t5_c1.3(n = c(5, 10), n_simulations = 5)
+#' replext_t5_c1.3(n = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -213,7 +213,7 @@ replext_t5_c1.3 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.5, Sk2 = 0.5
 #'         similar to 'replext_t5_c1.1' but with variations in standard deviations and skewness.
 #'
 #' @examples
-#' replext_t5_c2.1(n = c(5, 10), n_simulations = 5)
+#' replext_t5_c2.1(n = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -257,7 +257,7 @@ replext_t5_c2.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = 0.5, Sk2 = 0.5
 #'         with a focus on differing skewness levels between the two groups.
 #'
 #' @examples
-#' replext_t5_c2.2(n = c(5, 10), n_simulations = 5)
+#' replext_t5_c2.2(n = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -301,7 +301,7 @@ replext_t5_c2.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.2, Sk2 = 0.8
 #'         focusing on variations in skewness and standard deviations between the groups.
 #'
 #' @examples
-#' replext_t5_c2.3(n = c(5, 10), n_simulations = 5)
+#' replext_t5_c2.3(n = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size

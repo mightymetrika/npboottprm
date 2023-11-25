@@ -51,7 +51,7 @@ of the paper by Dwivedi et al. (2017). It sets the standard deviation of the
 second group (\code{S2}) to 3 by default.
 }
 \examples{
-replext_t2_c1.2(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
+replext_t2_c1.2(n1 = c(4), n2 = c(4), n_simulations = 1)
 
 }
 \references{

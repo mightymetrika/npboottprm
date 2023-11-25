@@ -68,7 +68,7 @@ deviation of the logarithms). For rpois (Poisson distribution), 'par1' is
 'par1' is the 'location' parameter and 'par2' is the 'scale' parameter.
 }
 \examples{
-replext_t4_c3.1(n1 = c(5,10), n2 = c(10,10),n_simulations = 5)
+replext_t4_c3.1(n1 = c(10), n2 = c(10),n_simulations = 1)
 
 }
 \references{

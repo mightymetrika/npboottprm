@@ -54,7 +54,7 @@ around \code{replext_t2_c1.1}, setting specific skewness parameters, variances,
 and sample sizes as described in the cell.
 }
 \examples{
-replext_t2_c4.2(n1 = c(4,5), n2 = c(2,3), n_simulations = 5)
+replext_t2_c4.2(n1 = c(4), n2 = c(2), n_simulations = 1)
 
 }
 \references{

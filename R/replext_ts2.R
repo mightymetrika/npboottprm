@@ -26,7 +26,7 @@
 #'         the proportions of significant p-values for each test (ANOVA, Kruskal-Wallis, Nonparametric Bootstrap F-test, Permutation F-test).
 #'
 #' @examples
-#' replext_ts2_c1.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+#' replext_ts2_c1.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -142,7 +142,7 @@ replext_ts2_c1.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, M3 = 5, S3 = 1,
 #'         default parameters.
 #'
 #' @examples
-#' replext_ts2_c1.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+#' replext_ts2_c1.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -195,7 +195,7 @@ replext_ts2_c1.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 2, M3 = 5, S3 = 4,
 #'         Kruskal-Wallis, Nonparametric Bootstrap F-test, Permutation F-test) under skew normal distribution.
 #'
 #' @examples
-#' replext_ts2_c2.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+#' replext_ts2_c2.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -250,7 +250,7 @@ replext_ts2_c2.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, M3 = 5, S3 = 1,
 #'         under these specific conditions.
 #'
 #' @examples
-#' replext_ts2_c2.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+#' replext_ts2_c2.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -303,7 +303,7 @@ replext_ts2_c2.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 2, M3 = 5, S3 = 4,
 #'         Permutation F-test) under the specified skewness conditions for each group.
 #'
 #' @examples
-#' replext_ts2_c3.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+#' replext_ts2_c3.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -356,7 +356,7 @@ replext_ts2_c3.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, M3 = 5, S3 = 1,
 #'         Permutation F-test), under the specific conditions of varying skewness and standard deviations.
 #'
 #' @examples
-#' replext_ts2_c3.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+#' replext_ts2_c3.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -409,7 +409,7 @@ replext_ts2_c3.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 2, M3 = 5, S3 = 4,
 #'         Permutation F-test) in these particular scenarios.
 #'
 #' @examples
-#' replext_ts2_c4.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+#' replext_ts2_c4.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -463,7 +463,7 @@ replext_ts2_c4.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, M3 = 5, S3 = 1,
 #'         varying sample sizes, and varying standrd deviations.
 #'
 #' @examples
-#' replext_ts2_c4.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+#' replext_ts2_c4.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size

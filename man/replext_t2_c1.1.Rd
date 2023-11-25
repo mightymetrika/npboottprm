@@ -51,7 +51,7 @@ The default parameter values aim to replicate the results from the paper,
 while modifying the parameter values allows for an extension of the results.
 }
 \examples{
-replext_t2_c1.1(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
+replext_t2_c1.1(n1 = c(4), n2 = c(4), n_simulations = 1)
 
 }
 \references{

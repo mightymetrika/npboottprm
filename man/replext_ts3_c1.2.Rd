@@ -64,7 +64,7 @@ to reproduce or extend the statistical power analysis for ANOVA (Analysis of
 Variance) from Dwivedi et al. (2017) supplemental table 3, cell 1.2.
 }
 \examples{
-replext_ts3_c1.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+replext_ts3_c1.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 
 }
 \references{

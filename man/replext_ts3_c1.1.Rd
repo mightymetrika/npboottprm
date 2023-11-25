@@ -67,7 +67,7 @@ performs various statistical tests to assess the statistical power. The function
 is a wrapper around \code{replext_ts2_c1.1}.
 }
 \examples{
-replext_ts3_c1.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+replext_ts3_c1.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 
 }
 \references{

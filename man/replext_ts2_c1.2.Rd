@@ -67,7 +67,7 @@ for a different simulation setup. It is part of the analysis extending the suppl
 of the paper by Dwivedi et al. (2017).
 }
 \examples{
-replext_ts2_c1.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+replext_ts2_c1.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 
 }
 \references{

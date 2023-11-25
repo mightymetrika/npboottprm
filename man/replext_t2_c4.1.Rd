@@ -53,7 +53,7 @@ variance in both groups. The function acts as a wrapper around \code{replext_t2_
 setting specific skewness parameters and sample sizes as per the cell's requirements.
 }
 \examples{
-replext_t2_c4.1(n1 = c(4,5), n2 = c(2,3), n_simulations = 5)
+replext_t2_c4.1(n1 = c(4), n2 = c(2), n_simulations = 1)
 
 }
 \references{

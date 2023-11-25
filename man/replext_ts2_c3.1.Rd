@@ -67,7 +67,7 @@ opportunity to explore how varying degrees of skewness in each group affect the 
 inferences in ANOVA, as part of the extended analysis in the context of the study by Dwivedi et al. (2017).
 }
 \examples{
-replext_ts2_c3.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+replext_ts2_c3.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 
 }
 \references{

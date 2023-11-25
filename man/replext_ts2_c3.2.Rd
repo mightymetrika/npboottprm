@@ -67,7 +67,7 @@ second and third groups. It contributes to a more comprehensive understanding of
 in the context of the study by Dwivedi et al. (2017), especially under conditions of non-normality.
 }
 \examples{
-replext_ts2_c3.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+replext_ts2_c3.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 
 }
 \references{

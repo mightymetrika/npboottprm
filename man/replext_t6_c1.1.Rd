@@ -52,7 +52,7 @@ at replicating and extending statistical power simulation results from Table 6
 cell 1.1 of the paper by Dwivedi et al. (2017).
 }
 \examples{
-replext_t6_c1.1(n = c(5, 10), n_simulations = 5)
+replext_t6_c1.1(n = c(10), n_simulations = 1)
 
 }
 \references{

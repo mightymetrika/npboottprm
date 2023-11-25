@@ -38,7 +38,7 @@
 #'         WRST, PTTa, PTTe).
 #'
 #' @examples
-#' replext_t4_c1.1(n1 = c(5,10), n2 = c(10,10),n_simulations = 5)
+#' replext_t4_c1.1(n1 = c(10), n2 = c(10),n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -191,7 +191,7 @@ replext_t4_c1.1 <- function(rdist = "rlnorm", par1_1 = 1, par2_1 = 0.6,
 #'         WRST, PTTa, PTTe).
 #'
 #' @examples
-#' replext_t4_c2.1(n1 = c(5,10), n2 = c(10,10),n_simulations = 5)
+#' replext_t4_c2.1(n1 = c(10), n2 = c(10),n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -249,7 +249,7 @@ replext_t4_c2.1 <- function(rdist = "rpois", par1_1 = 5, par2_1 = NULL,
 #'         WRST, PTTa, PTTe).
 #'
 #' @examples
-#' replext_t4_c3.1(n1 = c(5,10), n2 = c(10,10),n_simulations = 5)
+#' replext_t4_c3.1(n1 = c(10), n2 = c(10),n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -307,7 +307,7 @@ replext_t4_c3.1 <- function(rdist = "rchisq", par1_1 = 3, par2_1 = 0,
 #'         WRST, PTTa, PTTe).
 #'
 #' @examples
-#' replext_t4_c4.1(n1 = c(5,10), n2 = c(10,10), n_simulations = 5)
+#' replext_t4_c4.1(n1 = c(10), n2 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -365,7 +365,7 @@ replext_t4_c4.1 <- function(rdist = "rlnorm", par1_1 = 1, par2_1 = 0.6,
 #'         WRST, PTTa, PTTe).
 #'
 #' @examples
-#' replext_t4_c5.1(n1 = c(5,10), n2 = c(10,10), n_simulations = 5)
+#' replext_t4_c5.1(n1 = c(10), n2 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -424,7 +424,7 @@ replext_t4_c5.1 <- function(rdist = "rcauchy", par1_1 = 5, par2_1 = 2,
 #'         WRST, PTTa, PTTe).
 #'
 #' @examples
-#' replext_t4_c6.1(n1 = c(5,10), n2 = c(10,10), n_simulations = 5)
+#' replext_t4_c6.1(n1 = c(10), n2 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -484,7 +484,7 @@ replext_t4_c6.1 <- function(rdist = c("rchisq", "rpois"), par1_1 = 6, par2_1 = 0
 #'         WRST, PTTa, PTTe).
 #'
 #' @examples
-#' replext_t4_c7.1(n1 = c(5,10), n2 = c(10,10), n_simulations = 5)
+#' replext_t4_c7.1(n1 = c(10), n2 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size

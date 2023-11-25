@@ -53,7 +53,7 @@ and different means in the two groups. The function is a wrapper around
 \code{replext_t2_c1.1}, applying specific skewness parameters, means, and variances.
 }
 \examples{
-replext_t3_c3.2(n1 = c(10, 15), n2 = c(10, 15), n_simulations = 5)
+replext_t3_c3.2(n1 = c(10), n2 = c(10), n_simulations = 1)
 
 }
 \references{

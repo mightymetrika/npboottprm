@@ -65,7 +65,7 @@ with the option to use either normal or skew normal distributions, and
 performs various statistical tests to assess the Type I error rates.
 }
 \examples{
-replext_ts2_c1.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+replext_ts2_c1.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 
 }
 \references{

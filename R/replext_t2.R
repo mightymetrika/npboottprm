@@ -20,7 +20,7 @@
 #' @return A data frame with columns for each sample size pair (n1, n2) and the proportions of significant p-values for each test (ST, WT, NPBTT, WRST, PTT).
 #'
 #' @examples
-#' replext_t2_c1.1(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
+#' replext_t2_c1.1(n1 = c(4), n2 = c(4), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using nonparametric bootstrap test with pooled resampling method. Stat Med. 2017 Jun 30;36(14):2187-2205. doi: 10.1002/sim.7263. Epub 2017 Mar 9. PMID: 28276584.
@@ -126,7 +126,7 @@ replext_t2_c1.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = NULL, Sk2 = NU
 #' @return A data frame with columns for each sample size pair (n1, n2) and the proportions of significant p-values for each test (ST, WT, NPBTT, WRST, PTT).
 #'
 #' @examples
-#' replext_t2_c1.2(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
+#' replext_t2_c1.2(n1 = c(4), n2 = c(4), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using nonparametric bootstrap test with pooled resampling method. Stat Med. 2017 Jun 30;36(14):2187-2205. doi: 10.1002/sim.7263. Epub 2017 Mar 9. PMID: 28276584.
@@ -168,7 +168,7 @@ replext_t2_c1.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = NULL, Sk2 = NU
 #' of significant p-values for each test (ST, WT, NPBTT, WRST, PTT).
 #'
 #' @examples
-#' replext_t2_c2.1(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
+#' replext_t2_c2.1(n1 = c(4), n2 = c(4), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using
@@ -210,7 +210,7 @@ replext_t2_c2.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.8, Sk2 = 0.8
 #' @return A data frame with columns for each sample size pair (n1, n2) and the proportions of significant p-values for each test (ST, WT, NPBTT, WRST, PTT).
 #'
 #' @examples
-#' replext_t2_c2.2(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
+#' replext_t2_c2.2(n1 = c(4), n2 = c(4), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using nonparametric bootstrap test with pooled resampling method. Stat Med. 2017 Jun 30;36(14):2187-2205. doi: 10.1002/sim.7263. Epub 2017 Mar 9. PMID: 28276584.
@@ -250,7 +250,7 @@ replext_t2_c2.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = 0.8, Sk2 = 0.8
 #' @return A data frame with columns for each sample size pair (n1, n2) and the proportions of significant p-values for each test (ST, WT, NPBTT, WRST, PTT).
 #'
 #' @examples
-#' replext_t2_c3.1(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
+#' replext_t2_c3.1(n1 = c(4), n2 = c(4), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using nonparametric bootstrap test with pooled resampling method. Stat Med. 2017 Jun 30;36(14):2187-2205. doi: 10.1002/sim.7263. Epub 2017 Mar 9. PMID: 28276584.
@@ -291,7 +291,7 @@ replext_t2_c3.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.8, Sk2 = 1.0
 #' of significant p-values for each test (ST, WT, NPBTT, WRST, PTT).
 #'
 #' @examples
-#' replext_t2_c3.2(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
+#' replext_t2_c3.2(n1 = c(4), n2 = c(4), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using
@@ -334,7 +334,7 @@ replext_t2_c3.2 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 3, Sk1 = 0.8, Sk2 = 1.0
 #' of significant p-values for each test (ST, WT, NPBTT, WRST, PTT).
 #'
 #' @examples
-#' replext_t2_c4.1(n1 = c(4,5), n2 = c(2,3), n_simulations = 5)
+#' replext_t2_c4.1(n1 = c(4), n2 = c(2), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using
@@ -378,7 +378,7 @@ replext_t2_c4.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0.8, Sk2 = 0.8
 #' of significant p-values for each test (ST, WT, NPBTT, WRST, PTT).
 #'
 #' @examples
-#' replext_t2_c4.2(n1 = c(4,5), n2 = c(2,3), n_simulations = 5)
+#' replext_t2_c4.2(n1 = c(4), n2 = c(2), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using

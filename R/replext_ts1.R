@@ -36,7 +36,7 @@
 #'         WRST, PTTa, PTTe).
 #'
 #' @examples
-#' replext_ts1_c1.1(n1 = c(5,10), n2 = c(10,10),n_simulations = 5)
+#' replext_ts1_c1.1(n1 = c(10), n2 = c(10),n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -95,7 +95,7 @@ replext_ts1_c1.1 <- function(rdist = "rlnorm", par1_1 = 1, par2_1 = 0.6,
 #'         WRST, PTTa, PTTe).
 #'
 #' @examples
-#' replext_ts1_c2.1(n1 = c(5,10), n2 = c(10,10),n_simulations = 5)
+#' replext_ts1_c2.1(n1 = c(10), n2 = c(10),n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -153,7 +153,7 @@ replext_ts1_c2.1 <- function(rdist = "rpois", par1_1 = 5, par2_1 = NULL,
 #'         WRST, PTTa, PTTe).
 #'
 #' @examples
-#' replext_ts1_c3.1(n1 = c(5,10), n2 = c(10,10),n_simulations = 5)
+#' replext_ts1_c3.1(n1 = c(10), n2 = c(10),n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size

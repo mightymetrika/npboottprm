@@ -52,7 +52,7 @@ It compares two groups with different means but equal variance and optional skew
 The function is a wrapper around \code{replext_t2_c1.1}, adapted for statistical power analysis.
 }
 \examples{
-replext_t3_c1.1(n1 = c(10,15), n2 = c(10,15), n_simulations = 5)
+replext_t3_c1.1(n1 = c(10), n2 = c(10), n_simulations = 1)
 
 }
 \references{

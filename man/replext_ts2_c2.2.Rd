@@ -69,7 +69,7 @@ It aligns with the broader analytical goals set in the study by Dwivedi et al. (
 insights into the behavior of statistical tests under these conditions.
 }
 \examples{
-replext_ts2_c2.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+replext_ts2_c2.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 
 }
 \references{

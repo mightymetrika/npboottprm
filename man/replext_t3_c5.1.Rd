@@ -53,7 +53,7 @@ means and variances for both groups. It acts as a wrapper around
 \code{replext_t2_c1.1}, with modifications in means and sample sizes.
 }
 \examples{
-replext_t3_c5.1(n1 = c(3, 4), n2 = c(7, 11), n_simulations = 5)
+replext_t3_c5.1(n1 = c(4), n2 = c(11), n_simulations = 1)
 
 }
 \references{

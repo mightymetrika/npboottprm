@@ -67,7 +67,7 @@ comprehensive analysis in the context of the study by Dwivedi et al. (2017). The
 for simulations under the assumption of skewness in all three groups.
 }
 \examples{
-replext_ts2_c2.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+replext_ts2_c2.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 
 }
 \references{

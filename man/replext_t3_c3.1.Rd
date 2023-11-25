@@ -53,7 +53,7 @@ means in the two groups. It utilizes \code{replext_t2_c1.1} for calculations by
 setting specific skewness parameters.
 }
 \examples{
-replext_t3_c3.1(n1 = c(10, 15), n2 = c(10, 15), n_simulations = 5)
+replext_t3_c3.1(n1 = c(10), n2 = c(10), n_simulations = 1)
 
 }
 \references{

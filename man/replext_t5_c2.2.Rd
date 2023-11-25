@@ -54,7 +54,7 @@ both normal and skew normal characteristics, with different skewness parameters 
 each group while maintaining the same means and standard deviations.
 }
 \examples{
-replext_t5_c2.2(n = c(5, 10), n_simulations = 5)
+replext_t5_c2.2(n = c(10), n_simulations = 1)
 
 }
 \references{

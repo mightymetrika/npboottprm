@@ -67,7 +67,7 @@ of sample sizes for each group. This function explores the impact of non-normali
 varying group sizes, thereby extending the analysis framework of the study by Dwivedi et al. (2017).
 }
 \examples{
-replext_ts2_c4.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+replext_ts2_c4.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 
 }
 \references{

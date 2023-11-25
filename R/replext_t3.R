@@ -21,7 +21,7 @@
 #' of significant p-values for each test (ST, WT, NPBTT, WRST, PTT), representing statistical power.
 #'
 #' @examples
-#' replext_t3_c1.1(n1 = c(10,15), n2 = c(10,15), n_simulations = 5)
+#' replext_t3_c1.1(n1 = c(10), n2 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using
@@ -64,7 +64,7 @@ replext_t3_c1.1 <- function(M1 = 5, S1 = 1, M2 = 7, S2 = 1, Sk1 = NULL, Sk2 = NU
 #' of significant p-values for each test (ST, WT, NPBTT, WRST, PTT), representing the power analysis.
 #'
 #' @examples
-#' replext_t3_c1.2(n1 = c(10, 15), n2 = c(10, 15), n_simulations = 5)
+#' replext_t3_c1.2(n1 = c(10), n2 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using
@@ -107,7 +107,7 @@ replext_t3_c1.2 <- function(M1 = 5, S1 = 1, M2 = 7, S2 = 3, Sk1 = NULL, Sk2 = NU
 #' of significant p-values for each test (ST, WT, NPBTT, WRST, PTT), reflecting the power analysis.
 #'
 #' @examples
-#' replext_t3_c2.1(n1 = c(10, 15), n2 = c(10, 15), n_simulations = 5)
+#' replext_t3_c2.1(n1 = c(10), n2 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using
@@ -150,7 +150,7 @@ replext_t3_c2.1 <- function(M1 = 5, S1 = 1, M2 = 7, S2 = 1, Sk1 = 0.8, Sk2 = 0.8
 #' of significant p-values for each test (ST, WT, NPBTT, WRST, PTT), representing the power analysis.
 #'
 #' @examples
-#' replext_t3_c2.2(n1 = c(10, 15), n2 = c(10, 15), n_simulations = 5)
+#' replext_t3_c2.2(n1 = c(10), n2 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using
@@ -193,7 +193,7 @@ replext_t3_c2.2 <- function(M1 = 5, S1 = 1, M2 = 7, S2 = 3, Sk1 = 0.8, Sk2 = 0.8
 #' of significant p-values for each test (ST, WT, NPBTT, WRST, PTT), indicating the power analysis.
 #'
 #' @examples
-#' replext_t3_c3.1(n1 = c(10, 15), n2 = c(10, 15), n_simulations = 5)
+#' replext_t3_c3.1(n1 = c(10), n2 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using
@@ -236,7 +236,7 @@ replext_t3_c3.1 <- function(M1 = 5, S1 = 1, M2 = 7, S2 = 1, Sk1 = 0.8, Sk2 = 1.0
 #' of significant p-values for each test (ST, WT, NPBTT, WRST, PTT), indicating the power analysis.
 #'
 #' @examples
-#' replext_t3_c3.2(n1 = c(10, 15), n2 = c(10, 15), n_simulations = 5)
+#' replext_t3_c3.2(n1 = c(10), n2 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using
@@ -279,7 +279,7 @@ replext_t3_c3.2 <- function(M1 = 5, S1 = 1, M2 = 7, S2 = 3, Sk1 = 0.8, Sk2 = 1.0
 #' of significant p-values for each test (ST, WT, NPBTT, WRST, PTT), reflecting the power analysis.
 #'
 #' @examples
-#' replext_t3_c4.1(n1 = c(4,5), n2 = c(2,3), n_simulations = 5)
+#' replext_t3_c4.1(n1 = c(4), n2 = c(3), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using
@@ -323,7 +323,7 @@ replext_t3_c4.1 <- function(M1 = 5, S1 = 1, M2 = 7, S2 = 1, Sk1 = 0.8, Sk2 = 0.8
 #' of significant p-values for each test (ST, WT, NPBTT, WRST, PTT), representing the power analysis.
 #'
 #' @examples
-#' replext_t3_c4.2(n1 = c(4, 6), n2 = c(2, 3), n_simulations = 5)
+#' replext_t3_c4.2(n1 = c(6), n2 = c(3), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using
@@ -366,7 +366,7 @@ replext_t3_c4.2 <- function(M1 = 5, S1 = 1, M2 = 7, S2 = 3, Sk1 = 0.8, Sk2 = 0.8
 #' of significant p-values for each test (ST, WT, NPBTT, WRST, PTT), representing the power analysis.
 #'
 #' @examples
-#' replext_t3_c5.1(n1 = c(3, 4), n2 = c(7, 11), n_simulations = 5)
+#' replext_t3_c5.1(n1 = c(4), n2 = c(11), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using
@@ -409,7 +409,7 @@ replext_t3_c5.1 <- function(M1 = 5, S1 = 1, M2 = 7, S2 = 1, Sk1 = NULL, Sk2 = NU
 #' of significant p-values for each test (ST, WT, NPBTT, WRST, PTT), indicating the power analysis.
 #'
 #' @examples
-#' replext_t3_c5.2(n1 = c(3, 4), n2 = c(7, 11), n_simulations = 5)
+#' replext_t3_c5.2(n1 = c(4), n2 = c(11), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using

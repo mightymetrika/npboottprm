@@ -53,7 +53,7 @@ specifying means, standard deviations, skewness, and correlation for two
 paired distributions.
 }
 \examples{
-replext_t5_c1.1(n = c(5, 10), n_simulations = 5)
+replext_t5_c1.1(n = c(10), n_simulations = 1)
 
 }
 \references{

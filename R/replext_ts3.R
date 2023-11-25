@@ -28,7 +28,7 @@
 #'         Kruskal-Wallis, Nonparametric Bootstrap F-test, Permutation F-test).
 #'
 #' @examples
-#' replext_ts3_c1.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+#' replext_ts3_c1.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -76,7 +76,7 @@ replext_ts3_c1.1 <- function(M1 = 5, S1 = 1, M2 = 6, S2 = 1, M3 = 7, S3 = 1,
 #'         Kruskal-Wallis, Nonparametric Bootstrap F-test, Permutation F-test).
 #'
 #' @examples
-#' replext_ts3_c1.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+#' replext_ts3_c1.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -126,7 +126,7 @@ replext_ts3_c1.2 <- function(M1 = 5, S1 = 1, M2 = 6, S2 = 2, M3 = 7, S3 = 4,
 #'         Kruskal-Wallis, Nonparametric Bootstrap F-test, Permutation F-test).
 #'
 #' @examples
-#' replext_ts3_c2.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+#' replext_ts3_c2.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -177,7 +177,7 @@ replext_ts3_c2.1 <- function(M1 = 5, S1 = 1, M2 = 6, S2 = 1, M3 = 7, S3 = 1,
 #'         Kruskal-Wallis, Nonparametric Bootstrap F-test, Permutation F-test).
 #'
 #' @examples
-#' replext_ts3_c2.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+#' replext_ts3_c2.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -228,7 +228,7 @@ replext_ts3_c2.2 <- function(M1 = 5, S1 = 1, M2 = 6, S2 = 2, M3 = 7, S3 = 4,
 #'         Kruskal-Wallis, Nonparametric Bootstrap F-test, Permutation F-test).
 #'
 #' @examples
-#' replext_ts3_c3.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+#' replext_ts3_c3.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -279,7 +279,7 @@ replext_ts3_c3.1 <- function(M1 = 5, S1 = 1, M2 = 6, S2 = 1, M3 = 7, S3 = 1,
 #'         Kruskal-Wallis, Nonparametric Bootstrap F-test, Permutation F-test).
 #'
 #' @examples
-#' replext_ts3_c3.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+#' replext_ts3_c3.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -330,7 +330,7 @@ replext_ts3_c3.2 <- function(M1 = 5, S1 = 1, M2 = 6, S2 = 2, M3 = 7, S3 = 4,
 #'         Kruskal-Wallis, Nonparametric Bootstrap F-test, Permutation F-test).
 #'
 #' @examples
-#' replext_ts3_c4.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+#' replext_ts3_c4.1(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size
@@ -381,7 +381,7 @@ replext_ts3_c4.1 <- function(M1 = 5, S1 = 1, M2 = 6, S2 = 1, M3 = 7, S3 = 1,
 #'         Kruskal-Wallis, Nonparametric Bootstrap F-test, Permutation F-test).
 #'
 #' @examples
-#' replext_ts3_c4.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+#' replext_ts3_c4.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 #'
 #' @references
 #' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size

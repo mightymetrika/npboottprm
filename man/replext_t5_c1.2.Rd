@@ -54,7 +54,7 @@ the option to use either normal or skew normal distributions, differing in
 standard deviations between the two groups.
 }
 \examples{
-replext_t5_c1.2(n = c(5, 10), n_simulations = 5)
+replext_t5_c1.2(n = c(10), n_simulations = 1)
 
 }
 \references{

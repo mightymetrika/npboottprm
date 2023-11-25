@@ -53,7 +53,7 @@ by Dwivedi et al. (2017). It focuses on paired distributions featuring both
 normal and skew normal distributions, with specified skewness parameters for each group.
 }
 \examples{
-replext_t5_c1.3(n = c(5, 10), n_simulations = 5)
+replext_t5_c1.3(n = c(10), n_simulations = 1)
 
 }
 \references{

@@ -54,7 +54,7 @@ variances between the two groups. The function acts as a wrapper around
 unequal sample sizes.
 }
 \examples{
-replext_t3_c4.2(n1 = c(4, 6), n2 = c(2, 3), n_simulations = 5)
+replext_t3_c4.2(n1 = c(6), n2 = c(3), n_simulations = 1)
 
 }
 \references{

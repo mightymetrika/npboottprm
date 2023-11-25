@@ -53,7 +53,7 @@ in the two groups. It is a wrapper around \code{replext_t2_c1.1}, with adjusted 
 variances, and skewness parameters.
 }
 \examples{
-replext_t3_c2.2(n1 = c(10, 15), n2 = c(10, 15), n_simulations = 5)
+replext_t3_c2.2(n1 = c(10), n2 = c(10), n_simulations = 1)
 
 }
 \references{

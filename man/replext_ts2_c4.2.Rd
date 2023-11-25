@@ -68,7 +68,7 @@ part of a broader analysis aimed at understanding statistical behavior in skewed
 scenarios, aligning with the research context provided by Dwivedi et al. (2017).
 }
 \examples{
-replext_ts2_c4.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 5)
+replext_ts2_c4.2(n1 = c(10), n2 = c(10), n3 = c(10), n_simulations = 1)
 
 }
 \references{

@@ -52,7 +52,7 @@ two groups. The function is a wrapper around \code{replext_t2_c1.1}, setting
 specific skewness parameters as per the cell's requirements.
 }
 \examples{
-replext_t2_c3.1(n1 = c(4,5), n2 = c(4,5), n_simulations = 5)
+replext_t2_c3.1(n1 = c(4), n2 = c(4), n_simulations = 1)
 
 }
 \references{

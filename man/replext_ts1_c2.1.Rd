@@ -68,7 +68,7 @@ Lastly, for rcauchy (Cauchy distribution), 'par1' is the 'location' parameter
 and 'par2' is the 'scale' parameter.
 }
 \examples{
-replext_ts1_c2.1(n1 = c(5,10), n2 = c(10,10),n_simulations = 5)
+replext_ts1_c2.1(n1 = c(10), n2 = c(10),n_simulations = 1)
 
 }
 \references{

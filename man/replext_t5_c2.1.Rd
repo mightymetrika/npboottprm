@@ -54,7 +54,7 @@ and skew normal behaviors with different standard deviations and specified skewn
 parameters for each group.
 }
 \examples{
-replext_t5_c2.1(n = c(5, 10), n_simulations = 5)
+replext_t5_c2.1(n = c(10), n_simulations = 1)
 
 }
 \references{
