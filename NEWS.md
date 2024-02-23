@@ -1,4 +1,4 @@
-# npboottprm (development version)
+# npboottprm 0.2.1
 
 # npboottprm 0.2.0
 
