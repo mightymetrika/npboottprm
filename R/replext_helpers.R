@@ -756,29 +756,29 @@ appendInputParams <- function(df, input) {
   if (grepl("^replext_t2_", input$cellBlock) || grepl("^replext_t3_", input$cellBlock)) {
     params_df <- data.frame(
       M1 = input$M1, S1 = input$S1, M2 = input$M2, S2 = input$S2,
-      Sk1 = input$Sk1, Sk2 = input$Sk2, n1 = input$n1, n2 = input$n2,
+      Sk1 = input$Sk1, Sk2 = input$Sk2, #n1 = input$n1, n2 = input$n2,
       n_simulations = input$n_simulations, nboot = input$nboot,
-      conf.level = input$conf.level, Seed = input$seed, RunCode = run_code,
+      conf.level = input$conf.level, cellblock = input$cellBlock, Seed = input$seed, RunCode = run_code,
       stringsAsFactors = FALSE
     )
   } else if (grepl("^replext_t4_", input$cellBlock) || grepl("^replext_ts1_", input$cellBlock)) {
     params_df <- data.frame(
       rdist = text_to_char_vector(input$rdist), par1_1 = input$par1_1, par2_1 = handle_null(input$par2_1),
       par1_2 = input$par1_2, par2_2 = handle_null(input$par2_2),
-      n1 = text_to_vector(input$n1),
-      n2 = text_to_vector(input$n2),
+      #n1 = text_to_vector(input$n1),
+      #n2 = text_to_vector(input$n2),
       n_simulations = input$n_simulations, nboot = input$nboot,
-      conf.level = input$conf.level, Seed = input$seed, RunCode = run_code,
-      stringsAsFactors = FALSE
+      conf.level = input$conf.level, cellblock = input$cellBlock, Seed = input$seed,
+      RunCode = run_code, stringsAsFactors = FALSE
     )
   } else if (grepl("^replext_t5_", input$cellBlock) || grepl("^replext_t6_", input$cellBlock)) {
     params_df <- data.frame(
       M1 = input$M1, S1 = input$S1, M2 = input$M2, S2 = input$S2,
       Sk1 = handle_null(input$Sk1), Sk2 = handle_null(input$Sk2),
-      correl = input$correl, n = text_to_vector(input$n),
+      correl = input$correl, #n = text_to_vector(input$n),
       n_simulations = input$n_simulations, nboot = input$nboot,
-      conf.level = input$conf.level, Seed = input$seed, RunCode = run_code,
-      stringsAsFactors = FALSE
+      conf.level = input$conf.level, cellblock = input$cellBlock,
+      Seed = input$seed, RunCode = run_code, stringsAsFactors = FALSE
     )
   } else if (grepl("^replext_ts2_", input$cellBlock) || grepl("^replext_ts3_", input$cellBlock)) {
     params_df <- data.frame(
@@ -786,11 +786,11 @@ appendInputParams <- function(df, input) {
       M3 = input$M3, S3 = input$S3,
       Sk1 = handle_null(input$Sk1), Sk2 = handle_null(input$Sk2),
       Sk3 = handle_null(input$Sk3),
-      n1 = text_to_vector(input$n1), n2 = text_to_vector(input$n2),
-      n3 = text_to_vector(input$n3),
+      #n1 = text_to_vector(input$n1), n2 = text_to_vector(input$n2),
+      #n3 = text_to_vector(input$n3),
       n_simulations = input$n_simulations, nboot = input$nboot,
-      conf.level = input$conf.level, Seed = input$seed, RunCode = run_code,
-      stringsAsFactors = FALSE
+      conf.level = input$conf.level, cellblock = input$cellBlock,
+      Seed = input$seed, RunCode = run_code, stringsAsFactors = FALSE
     )
   } else {
     stop("Must select a supported cell block")
