@@ -3,6 +3,7 @@
 export(nonparboot)
 export(nonparboot_app)
 export(replext)
+export(replext_pgsql)
 export(replext_t2_c1.1)
 export(replext_t2_c1.2)
 export(replext_t2_c2.1)

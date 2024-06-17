@@ -7,7 +7,6 @@
 #'
 #' @details
 #' The app's user interface consists of:
-#' - A numeric input for setting an optional random number seed.
 #' - A dropdown menu to select a cell block for the simulation, which is
 #'   populated using the `getCellBlocks` function.
 #' - Dynamic UI elements for inputting simulation parameters, generated
@@ -38,7 +37,6 @@ replext <- function() {
     shiny::titlePanel("Replext Simulation"),
     shiny::sidebarLayout(
       shiny::sidebarPanel(
-        shiny::numericInput("seed", "Random Number Seed (Optional):", value = NA, min = 1),
         shiny::selectInput("cellBlock", "Select Cell Block:",
                            choices = getCellBlocks()),
         shiny::uiOutput("paramsUI"),

@@ -15,7 +15,6 @@ and handle user interactions.
 \details{
 The app's user interface consists of:
 \itemize{
-\item A numeric input for setting an optional random number seed.
 \item A dropdown menu to select a cell block for the simulation, which is
 populated using the \code{getCellBlocks} function.
 \item Dynamic UI elements for inputting simulation parameters, generated

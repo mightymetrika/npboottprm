@@ -749,8 +749,16 @@ getUIParams <- function(cellBlock) {
 #'
 #' @keywords internal
 appendInputParams <- function(df, input) {
+
+  # Helper function to generate a unique run code
+  generateRunCode <- function() {
+    timestamp <- format(Sys.time(), "%Y%m%d%H%M%S")
+    random_string <- paste(sample(c(letters, LETTERS, 0:9), 5, replace = TRUE), collapse = "")
+    paste0(timestamp, "_", random_string)
+  }
+
   # Generate a unique code for the simulation run
-  run_code <- paste(sample(letters, 10, replace = TRUE), collapse = "")
+  run_code <- generateRunCode()
 
   # Create a data frame of input parameters
   if (grepl("^replext_t2_", input$cellBlock) || grepl("^replext_t3_", input$cellBlock)) {
@@ -758,7 +766,7 @@ appendInputParams <- function(df, input) {
       M1 = input$M1, S1 = input$S1, M2 = input$M2, S2 = input$S2,
       Sk1 = input$Sk1, Sk2 = input$Sk2, #n1 = input$n1, n2 = input$n2,
       n_simulations = input$n_simulations, nboot = input$nboot,
-      conf.level = input$conf.level, cellblock = input$cellBlock, Seed = input$seed, RunCode = run_code,
+      conf.level = input$conf.level, cellblock = input$cellBlock, RunCode = run_code,
       stringsAsFactors = FALSE
     )
   } else if (grepl("^replext_t4_", input$cellBlock) || grepl("^replext_ts1_", input$cellBlock)) {
@@ -768,7 +776,7 @@ appendInputParams <- function(df, input) {
       #n1 = text_to_vector(input$n1),
       #n2 = text_to_vector(input$n2),
       n_simulations = input$n_simulations, nboot = input$nboot,
-      conf.level = input$conf.level, cellblock = input$cellBlock, Seed = input$seed,
+      conf.level = input$conf.level, cellblock = input$cellBlock,
       RunCode = run_code, stringsAsFactors = FALSE
     )
   } else if (grepl("^replext_t5_", input$cellBlock) || grepl("^replext_t6_", input$cellBlock)) {
@@ -778,7 +786,7 @@ appendInputParams <- function(df, input) {
       correl = input$correl, #n = text_to_vector(input$n),
       n_simulations = input$n_simulations, nboot = input$nboot,
       conf.level = input$conf.level, cellblock = input$cellBlock,
-      Seed = input$seed, RunCode = run_code, stringsAsFactors = FALSE
+      RunCode = run_code, stringsAsFactors = FALSE
     )
   } else if (grepl("^replext_ts2_", input$cellBlock) || grepl("^replext_ts3_", input$cellBlock)) {
     params_df <- data.frame(
@@ -790,7 +798,7 @@ appendInputParams <- function(df, input) {
       #n3 = text_to_vector(input$n3),
       n_simulations = input$n_simulations, nboot = input$nboot,
       conf.level = input$conf.level, cellblock = input$cellBlock,
-      Seed = input$seed, RunCode = run_code, stringsAsFactors = FALSE
+      RunCode = run_code, stringsAsFactors = FALSE
     )
   } else {
     stop("Must select a supported cell block")
@@ -819,10 +827,10 @@ appendInputParams <- function(df, input) {
 #' @keywords internal
 runSimulation <- function(input) {
 
-  # Set the seed if provided
-  if (!is.na(input$seed) && input$seed > 0) {
-    set.seed(input$seed)
-  }
+  # # Set the seed if provided
+  # if (!is.na(input$seed) && input$seed > 0) {
+  #   set.seed(input$seed)
+  # }
 
   # Dynamically call the appropriate function based on the cell block prefix
   if (grepl("^replext_t2_", input$cellBlock) || grepl("^replext_t3_", input$cellBlock)) {

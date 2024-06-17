@@ -1,0 +1,48 @@
+-- Table: public.npb_data
+
+-- DROP TABLE IF EXISTS public.npb_data;
+
+CREATE TABLE IF NOT EXISTS public.npb_data
+(
+    n real,
+    n1 real,
+    n2 real,
+    n3 real,
+    m1 real,
+    m2 real,
+    m3 real,
+    s1 real,
+    s2 real,
+    s3 real,
+    sk1 real,
+    sk2 real,
+    sk3 real,
+    rdist text COLLATE pg_catalog."default",
+    correl real,
+    par1_1 real,
+    par2_1 real,
+    par1_2 real,
+    par2_2 real,
+    st real,
+    wt real,
+    npbtt real,
+    wrst real,
+    ptt real,
+    ptta real,
+    ptte real,
+    pt real,
+    anov real,
+    kw real,
+    pft real,
+    npbft real,
+    n_simulations integer,
+    nboot integer,
+    conf real,
+    cellblock text COLLATE pg_catalog."default",
+    runcode text COLLATE pg_catalog."default"
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.npb_data
+    OWNER to postgres;

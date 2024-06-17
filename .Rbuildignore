@@ -8,3 +8,4 @@
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
 ^revdep$
+^createtable_public.npb_data\.txt$
