@@ -33,14 +33,18 @@
 #' @param user The username for accessing the PostgreSQL database.
 #' @param password The password for the specified user to access the PostgreSQL database.
 #'
+#' @return A Shiny app object which can be run to start the application.
+#'
 #' @references
-#' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies using nonparametric bootstrap test with pooled resampling method. Stat Med. 2017 Jun 30;36(14):2187-2205. doi: 10.1002/sim.7263. Epub 2017 Mar 9. PMID: 28276584.
+#' Dwivedi AK, Mallawaarachchi I, Alvarado LA. Analysis of small sample size studies
+#' using nonparametric bootstrap test with pooled resampling method. Stat Med. 2017
+#' Jun 30;36(14):2187-2205. doi: 10.1002/sim.7263. Epub 2017 Mar 9. PMID: 28276584.
 #'
 #' @examples
 #' if (interactive()) {
 #'   replext_pgsql(
 #'     dbname = "your_db_name",
-#'     datatable = "npb_data",
+#'     datatable = "your_data_table",
 #'     host = "localhost",
 #'     port = 5432,
 #'     user = "your_username",
