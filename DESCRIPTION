@@ -1,6 +1,6 @@
 Package: npboottprm
 Title: Nonparametric Bootstrap Test with Pooled Resampling
-Version: 0.3.0
+Version: 0.3.0.9000
 Authors@R: c(
     person("Mackson", "Ncube", , "macksonncube.stats@gmail.com", role = c("aut", "cre")),
     person("mightymetrika, LLC", role = c("cph", "fnd"))
