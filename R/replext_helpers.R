@@ -792,8 +792,8 @@ appendInputParams <- function(df, input) {
     params_df <- data.frame(
       M1 = input$M1, S1 = input$S1, M2 = input$M2, S2 = input$S2,
       M3 = input$M3, S3 = input$S3,
-      Sk1 = handle_null(input$Sk1), Sk2 = handle_null(input$Sk2),
-      Sk3 = handle_null(input$Sk3),
+      Sk1 = input$Sk1, Sk2 = input$Sk2,
+      Sk3 = input$Sk3,
       #n1 = text_to_vector(input$n1), n2 = text_to_vector(input$n2),
       #n3 = text_to_vector(input$n3),
       n_simulations = input$n_simulations, nboot = input$nboot,

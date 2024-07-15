@@ -106,7 +106,7 @@ replext_t4_c1.1 <- function(rdist = "rlnorm", par1_1 = 1, par2_1 = 0.6,
     }, error = function(e) NA)
 
     wrst <- tryCatch({
-      stats::wilcox.test(x ~ grp, df, paired = FALSE, exact = TRUE)$p.value <= 1 - conf.level
+      stats::wilcox.test(x ~ grp, df, exact = TRUE)$p.value <= 1 - conf.level
     }, error = function(e) NA)
 
     ptt_res <- tryCatch({
