@@ -135,7 +135,8 @@ replext_pgsql <- function(dbname, datatable, host, port, user, password) {
         shiny::actionButton("submit", "Submit"),
         shiny::br(),  # Add a line break
         shiny::br(),  # Add a line break
-        shiny::downloadButton("downloadBtn", "Download Responses")
+        shiny::downloadButton("downloadBtn", "Download Responses"),
+        shiny::actionButton("show_citations", "Citations")
       ),
       shiny::mainPanel(
         # Conditionally display the Simulation Results header and table
@@ -147,7 +148,9 @@ replext_pgsql <- function(dbname, datatable, host, port, user, password) {
         shiny::div(
           shiny::h4("All Responses"),
           DT::DTOutput("responses")
-        )
+        ),
+        shiny::uiOutput("citation_header"),
+        shiny::verbatimTextOutput("citations_output")
       )
     )
   )
@@ -238,6 +241,36 @@ replext_pgsql <- function(dbname, datatable, host, port, user, password) {
         utils::write.csv(loadData(), file, row.names = FALSE)
       }
     )
+
+    # Initialize citations_text as an empty string
+    citations_text <- shiny::reactiveVal("")
+
+    shiny::observeEvent(input$show_citations, {
+      # Get the formatted citations
+      npboottprm_citation <- format_citation(utils::citation("npboottprm"))
+
+      citations <- paste(
+        "Statistical Methods:",
+        "Dwivedi, A. K., Mallawaarachchi, I., & Alvarado, L. A. (2017). Analysis of small sample size studies using nonparametric bootstrap test with pooled resampling method. Statistics in medicine, 36(14), 2187-2205. https://doi.org/10.1002/sim.7263",
+        "",
+        "Web Application:",
+        npboottprm_citation,
+        sep = "\n"
+      )
+      citations_text(citations)
+    })
+
+
+    # Render the citations output
+    output$citations_output <- shiny::renderText({
+      citations_text()
+    })
+
+    output$citation_header <- shiny::renderUI({
+      shiny::req(citations_text())
+      shiny::tags$h2("Citations")
+    })
+
   }
 
   # Run the application

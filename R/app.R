@@ -31,12 +31,15 @@ nonparboot_app <- function(){
                   shiny::numericInput("conf.level", "Confidence Level", value = 0.95, min = 0, max = 1),
                   shiny::numericInput("seed", "Random Seed (optional)", value = NA),
                   shiny::checkboxInput("na_rm", "Remove observations with missing values", value = FALSE),
-                  shiny::actionButton("run", "Run Test")
+                  shiny::actionButton("run", "Run Test"),
+                  shiny::actionButton("show_citations", "Citations")
     ),
     shiny::column(width = 8, align="center",
                   shiny::h3("Nonparametric Bootstrap Test with Pooled Resampling"),
                   shiny::uiOutput("resultUI"),
-                  shiny::uiOutput("histAndSliderUI")
+                  shiny::uiOutput("histAndSliderUI"),
+                  shiny::uiOutput("citation_header"),
+                  shiny::verbatimTextOutput("citations_output")
     )
   )
 
@@ -170,6 +173,35 @@ nonparboot_app <- function(){
         )
       }
       shiny::HTML(explanation_text)
+    })
+
+    # Initialize citations_text as an empty string
+    citations_text <- shiny::reactiveVal("")
+
+    shiny::observeEvent(input$show_citations, {
+      # Get the formatted citations
+      npboottprm_citation <- format_citation(utils::citation("npboottprm"))
+
+      citations <- paste(
+        "Statistical Methods:",
+        "Dwivedi, A. K., Mallawaarachchi, I., & Alvarado, L. A. (2017). Analysis of small sample size studies using nonparametric bootstrap test with pooled resampling method. Statistics in medicine, 36(14), 2187-2205. https://doi.org/10.1002/sim.7263",
+        "",
+        "Web Application:",
+        npboottprm_citation,
+        sep = "\n"
+      )
+      citations_text(citations)
+    })
+
+
+    # Render the citations output
+    output$citations_output <- shiny::renderText({
+      citations_text()
+    })
+
+    output$citation_header <- shiny::renderUI({
+      shiny::req(citations_text())
+      shiny::tags$h2("Citations")
     })
 
   }

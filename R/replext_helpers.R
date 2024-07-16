@@ -782,7 +782,8 @@ appendInputParams <- function(df, input) {
   } else if (grepl("^replext_t5_", input$cellBlock) || grepl("^replext_t6_", input$cellBlock)) {
     params_df <- data.frame(
       M1 = input$M1, S1 = input$S1, M2 = input$M2, S2 = input$S2,
-      Sk1 = handle_null(input$Sk1), Sk2 = handle_null(input$Sk2),
+      #Sk1 = handle_null(input$Sk1), Sk2 = handle_null(input$Sk2),
+      Sk1 = input$Sk1, Sk2 = input$Sk2,
       correl = input$correl, #n = text_to_vector(input$n),
       n_simulations = input$n_simulations, nboot = input$nboot,
       conf.level = input$conf.level, cellblock = input$cellBlock,
@@ -926,4 +927,39 @@ text_to_vector <- function(text_input) {
 #' @keywords internal
 text_to_char_vector <- function(text_input) {
   strsplit(trimws(text_input), ",")[[1]]
+}
+
+#' Format Citation
+#'
+#' This internal function formats a citation object into a readable string.
+#' The function extracts relevant information such as the title, author,
+#' year, address, note, and URL from the citation object and formats it into a
+#' standardized citation format.
+#'
+#' @param cit A citation object typically obtained from `citation()`.
+#'
+#' @return A character string with the formatted citation.
+#'
+#' @keywords internal
+format_citation <- function(cit) {
+  title <- cit$title
+  author <- if (is.null(cit$author)) {
+    cit$organization
+  } else {
+    paste(sapply(cit$author, function(a) paste(a$given, a$family)), collapse = ", ")
+  }
+  year <- cit$year
+  address <- cit$address
+  url <- cit$url
+  note <- cit$note
+
+  formatted_cit <- paste0(
+    author, " (", year, "). ",
+    title, ". ",
+    note, ", ",
+    "Retrieved from ", url, ". ",
+    address
+  )
+
+  formatted_cit
 }

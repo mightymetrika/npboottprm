@@ -42,7 +42,11 @@ replext_t5_c1.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = 0, Sk2 = 0,
     # Generate normal or skew normal data
     generate_data <- function(n, M1, S1, M2, S2, Sk1, Sk2, correl) {
       Sigma <- matrix(c(S1^2, S1*S2*correl, S1*S2*correl, S2^2), 2, 2)
-      if (Sk1 == 0 && Sk2 == 0) {
+      if ((Sk1 == 0 && Sk2 == 0) ||
+          (is.null(Sk1) && is.null(Sk2)) ||
+          (Sk1 == 0 && is.null(Sk2)) ||
+          (is.null(Sk1) && Sk2 == 0)
+           ) {
         # Use MASS::mvrnorm for normal distribution
         return(MASS::mvrnorm(n, mu = c(M1, M2), Sigma = Sigma))
       } else {
