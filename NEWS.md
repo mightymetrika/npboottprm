@@ -1,6 +1,10 @@
 # npboottprm (development version)
 
-# npboottprm 0.3.0
+# npboottprm 0.3.1
+
+* Fixed bugs in replext_pgsql() to ensure that all table cells function
+
+* Add citations button to 'shiny' apps
 
 # npboottprm 0.3.0
 

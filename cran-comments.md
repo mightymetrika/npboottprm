@@ -1,5 +1,8 @@
-This update adds the replext_pgsql() 'shiny' app function which is similar to the
-replext() function except it is designed to save results to 'PostgreSQL' database.
+This patch fixes bugs with the replext_pgsql() 'shiny' app to ensure that null
+values for skew are being handled correctly.
+
+The patch also adds a citations button to 'shiny' apps to make it easier for
+users to cite the statistical methods and software upon which the apps were built.
 
 ## R CMD check results
 
@@ -11,3 +14,4 @@ We checked 2 reverse dependencies, comparing R CMD check results across CRAN and
 
  * We saw 0 new problems
  * We failed to check 0 packages
+
