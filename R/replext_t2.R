@@ -42,7 +42,10 @@ replext_t2_c1.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, Sk1 = NULL, Sk2 = NU
 
     # Generate normal or skew normal data
     generate_data <- function(n, mean, sd, skew) {
-      if (is.null(skew)) {
+      if (is.null(skew) || skew == 0) {
+        if(!is.null(skew)){
+          warning("Using stats::rnorm() instead of fGarch::rsnorm() since skew = 0")
+        }
         stats::rnorm(n, mean, sd)
       } else {
         fGarch::rsnorm(n, mean, sd, xi = skew)
