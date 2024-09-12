@@ -55,74 +55,6 @@
 #' @export
 replext_pgsql <- function(dbname, datatable, host, port, user, password) {
 
-  # Helper function to save data to the database
-  saveData <- function(data){
-
-    # Connect to the database
-    pool <- pool::dbPool(
-      drv = RPostgres::Postgres(),
-      dbname = dbname,
-      host = host,
-      user = user,
-      password = password,
-      port = port
-    )
-
-    # Close pool on stop
-    shiny::onStop(function() {
-      pool::poolClose(pool)
-    })
-
-    # Change name of conf.level to conf
-    colnames(data)[which(names(data) == "conf.level")] <- "conf"
-
-    # Convert NA to NaN in the data frame
-    data[is.na(data)] <- NaN
-
-    # Construct the update query by looping over the data fields
-    query <- sprintf(
-      "INSERT INTO %s (%s) VALUES ('%s')",
-      datatable,
-      paste(names(data), collapse = ", "),
-      paste(data, collapse = "', '")
-    )
-
-    # Execute the query
-    tryCatch({
-      pool::dbExecute(pool, query)
-    }, error = function(e) {
-      print(paste("Error:", e))
-    })
-
-  }
-
-  # Helper function to load data from database
-  loadData <- function() {
-
-    # Connect to the database
-    pool <- pool::dbPool(
-      drv = RPostgres::Postgres(),
-      dbname = dbname,
-      host = host,
-      user = user,
-      password = password,
-      port = port
-    )
-
-    # Close pool on stop
-    shiny::onStop(function() {
-      pool::poolClose(pool)
-    })
-
-    # Construct the fetching query
-    sql <- sprintf("SELECT * FROM %s", datatable)
-    query <- pool::sqlInterpolate(pool, sql)
-
-    # Submit the fetch query and disconnect
-    pool::dbGetQuery(pool, query)
-
-  }
-
   # Define the UI
   ui <- shiny::fluidPage(
     shiny::titlePanel("Replext Simulation"),
@@ -132,11 +64,11 @@ replext_pgsql <- function(dbname, datatable, host, port, user, password) {
                            choices = getCellBlocks()),
         shiny::uiOutput("paramsUI"),
         shiny::actionButton("runSim", "Run Simulation"),
-        shiny::actionButton("submit", "Submit"),
+        mmints::postgresUI("postgres")$submit,
         shiny::br(),  # Add a line break
         shiny::br(),  # Add a line break
-        shiny::downloadButton("downloadBtn", "Download Responses"),
-        shiny::actionButton("show_citations", "Citations")
+        mmints::postgresUI("postgres")$download,
+        mmints::citationUI("citations")$button
       ),
       shiny::mainPanel(
         # Conditionally display the Simulation Results header and table
@@ -147,10 +79,10 @@ replext_pgsql <- function(dbname, datatable, host, port, user, password) {
         # Add a header for the responses table
         shiny::div(
           shiny::h4("All Responses"),
-          DT::DTOutput("responses")
+          mmints::postgresUI("postgres")$table,
         ),
         shiny::uiOutput("citation_header"),
-        shiny::verbatimTextOutput("citations_output")
+        mmints::citationUI("citations")$output
       )
     )
   )
@@ -163,14 +95,24 @@ replext_pgsql <- function(dbname, datatable, host, port, user, password) {
       getUIParams(input$cellBlock)
     })
 
+    # initialize the postgres module
+    postgres_module <- mmints::postgresServer("postgres",
+                                              dbname = dbname,
+                                              datatable = datatable,
+                                              host = host,
+                                              port = port,
+                                              user = user,
+                                              password = password,
+                                              data = NULL)
+
     # Reactive value to store the results
     results <- shiny::reactiveVal(data.frame())     #For display
     results_exp <- shiny::reactiveVal(data.frame()) #For export
 
-    # Load data from the database on app start
-    output$responses <- DT::renderDT({
-      loadData()
-    }, options = list(pageLength = 5))
+    # # Load data from the database on app start
+    # output$responses <- DT::renderDT({
+    #   loadData()
+    # }, options = list(pageLength = 5))
 
     # Observe event for the run simulation button
     shiny::observeEvent(input$runSim, {
@@ -183,41 +125,16 @@ replext_pgsql <- function(dbname, datatable, host, port, user, password) {
 
       # Update the results reactive value
       results(simResults)
-      results_exp(simResults)
+      results_exp(appendInputParams(results(), input))
+
+      # submit results to database
+      postgres_module$data_to_submit(results_exp())
     })
 
     #Output the results table
     output$resultsTable <- DT::renderDT({
       results()
     }, options = list(pageLength = 5))
-
-    # When the Submit button is clicked, save the form data
-    shiny::observeEvent(input$submit, {
-      # Prevent submitting if results are empty
-      if(nrow(results_exp()) == 0) {
-        shiny::showModal(shiny::modalDialog(
-          title = "Error",
-          "No results to submit. Please run the simulation first.",
-          easyClose = TRUE,
-          footer = NULL
-        ))
-        return()
-      }
-
-      # add additional simulation setting information to the results before
-      # exporting to database
-      simResults_exp <- appendInputParams(results(), input)
-      saveData(simResults_exp)
-
-      # Clear the results after submission
-      results_exp(data.frame())
-
-      # Update the responses table with new data
-      output$responses <- DT::renderDT({
-        loadData()
-      }, options = list(pageLength = 5))
-
-    })
 
     # Conditionally display the Simulation Results header
     output$simulation_results_header <- shiny::renderUI({
@@ -228,48 +145,14 @@ replext_pgsql <- function(dbname, datatable, host, port, user, password) {
       }
     })
 
-    # Download handler for exporting data
-    output$downloadBtn <- shiny::downloadHandler(
-      filename = function() {
-        paste0("Simulation_Results_", Sys.Date(), ".csv")
-      },
-      content = function(file) {
-        # Ensure there is data to download
-        #shiny::req(loadData())
-
-        # Write the data to a CSV file
-        utils::write.csv(loadData(), file, row.names = FALSE)
-      }
+    # build citation list
+    citations <- list(
+      "Nonparametric Bootstrap Test with Pooled Resampling Method:" = "Dwivedi, A. K., Mallawaarachchi, I., & Alvarado, L. A. (2017). Analysis of small sample size studies using nonparametric bootstrap test with pooled resampling method. Statistics in Medicine, 36(14), 2187-2205. https://doi.org/10.1002/sim.7263",
+      "Software Implementing Nonparametric Bootstrap Test with Pooled Resampling:" = function() mmints::format_citation(utils::citation("npboottprm"))
     )
 
-    # Initialize citations_text as an empty string
-    citations_text <- shiny::reactiveVal("")
-
-    shiny::observeEvent(input$show_citations, {
-      # Get the formatted citations
-      npboottprm_citation <- format_citation(utils::citation("npboottprm"))
-
-      citations <- paste(
-        "Statistical Methods:",
-        "Dwivedi, A. K., Mallawaarachchi, I., & Alvarado, L. A. (2017). Analysis of small sample size studies using nonparametric bootstrap test with pooled resampling method. Statistics in medicine, 36(14), 2187-2205. https://doi.org/10.1002/sim.7263",
-        "",
-        "Web Application:",
-        npboottprm_citation,
-        sep = "\n"
-      )
-      citations_text(citations)
-    })
-
-
-    # Render the citations output
-    output$citations_output <- shiny::renderText({
-      citations_text()
-    })
-
-    output$citation_header <- shiny::renderUI({
-      shiny::req(citations_text())
-      shiny::tags$h2("Citations")
-    })
+    # create citation for display
+    mmints::citationServer("citations", citations)
 
   }
 

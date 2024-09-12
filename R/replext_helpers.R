@@ -750,41 +750,42 @@ getUIParams <- function(cellBlock) {
 #' @keywords internal
 appendInputParams <- function(df, input) {
 
-  # Helper function to generate a unique run code
-  generateRunCode <- function() {
-    timestamp <- format(Sys.time(), "%Y%m%d%H%M%S")
-    random_string <- paste(sample(c(letters, LETTERS, 0:9), 5, replace = TRUE), collapse = "")
-    paste0(timestamp, "_", random_string)
-  }
-
   # Generate a unique code for the simulation run
-  run_code <- generateRunCode()
+  run_code <- mmints::generateRunCode()
 
   # Create a data frame of input parameters
   if (grepl("^replext_t2_", input$cellBlock) || grepl("^replext_t3_", input$cellBlock)) {
     params_df <- data.frame(
       M1 = input$M1, S1 = input$S1, M2 = input$M2, S2 = input$S2,
-      Sk1 = input$Sk1, Sk2 = input$Sk2, #n1 = input$n1, n2 = input$n2,
+      Sk1 = input$Sk1, Sk2 = input$Sk2,
       n_simulations = input$n_simulations, nboot = input$nboot,
       conf.level = input$conf.level, cellblock = input$cellBlock, RunCode = run_code,
       stringsAsFactors = FALSE
     )
   } else if (grepl("^replext_t4_", input$cellBlock) || grepl("^replext_ts1_", input$cellBlock)) {
     params_df <- data.frame(
-      rdist = text_to_char_vector(input$rdist), par1_1 = input$par1_1, par2_1 = handle_null(input$par2_1),
-      par1_2 = input$par1_2, par2_2 = handle_null(input$par2_2),
-      #n1 = text_to_vector(input$n1),
-      #n2 = text_to_vector(input$n2),
+      rdist = text_to_char_vector(input$rdist), par1_1 = input$par1_1, par2_1 = mmints::vec_null(input$par2_1),
+      par1_2 = input$par1_2, par2_2 = mmints::vec_null(input$par2_2),
       n_simulations = input$n_simulations, nboot = input$nboot,
       conf.level = input$conf.level, cellblock = input$cellBlock,
       RunCode = run_code, stringsAsFactors = FALSE
     )
+
+    # make sure rpois values are null in the database
+    if (input$rdist == "rpois"){
+      params_df$par2_1 <- NULL
+      params_df$par2_1 <- NULL
+    }
+
+    if(grepl("rchisq",input$rdist) & grepl("rpois", input$rdist)) {
+      params_df$par2_1 <- NULL
+    }
+
   } else if (grepl("^replext_t5_", input$cellBlock) || grepl("^replext_t6_", input$cellBlock)) {
     params_df <- data.frame(
       M1 = input$M1, S1 = input$S1, M2 = input$M2, S2 = input$S2,
-      #Sk1 = handle_null(input$Sk1), Sk2 = handle_null(input$Sk2),
       Sk1 = input$Sk1, Sk2 = input$Sk2,
-      correl = input$correl, #n = text_to_vector(input$n),
+      correl = input$correl,
       n_simulations = input$n_simulations, nboot = input$nboot,
       conf.level = input$conf.level, cellblock = input$cellBlock,
       RunCode = run_code, stringsAsFactors = FALSE
@@ -795,8 +796,6 @@ appendInputParams <- function(df, input) {
       M3 = input$M3, S3 = input$S3,
       Sk1 = input$Sk1, Sk2 = input$Sk2,
       Sk3 = input$Sk3,
-      #n1 = text_to_vector(input$n1), n2 = text_to_vector(input$n2),
-      #n3 = text_to_vector(input$n3),
       n_simulations = input$n_simulations, nboot = input$nboot,
       conf.level = input$conf.level, cellblock = input$cellBlock,
       RunCode = run_code, stringsAsFactors = FALSE
@@ -808,8 +807,13 @@ appendInputParams <- function(df, input) {
   # Repeat the parameters data frame to match the number of rows in df
   params_df <- params_df[rep(1, nrow(df)), ]
 
+  # Change name of conf.level to conf
+  colnames(params_df)[which(names(params_df) == "conf.level")] <- "conf"
+
   # Combine with the simulation results
   cbind(df, params_df)
+
+
 }
 
 #' Execute Simulation Based on User Inputs
@@ -828,85 +832,39 @@ appendInputParams <- function(df, input) {
 #' @keywords internal
 runSimulation <- function(input) {
 
-  # # Set the seed if provided
-  # if (!is.na(input$seed) && input$seed > 0) {
-  #   set.seed(input$seed)
-  # }
-
   # Dynamically call the appropriate function based on the cell block prefix
   if (grepl("^replext_t2_", input$cellBlock) || grepl("^replext_t3_", input$cellBlock)) {
     return(replext_t2_c1.1(M1 = input$M1, S1 = input$S1, M2 = input$M2, S2 = input$S2,
-                           Sk1 = handle_null(input$Sk1), Sk2 = handle_null(input$Sk2),
-                           n1 = text_to_vector(input$n1), n2 = text_to_vector(input$n2),
+                           Sk1 = mmints::vec_null(input$Sk1), Sk2 = mmints::vec_null(input$Sk2),
+                           n1 = mmints::text_to_vector(input$n1), n2 = mmints::text_to_vector(input$n2),
                            n_simulations = input$n_simulations, nboot = input$nboot,
                            conf.level = input$conf.level))
   } else if (grepl("^replext_t4_", input$cellBlock) || grepl("^replext_ts1_", input$cellBlock)) {
-    return(replext_t4_c1.1(rdist = text_to_char_vector(input$rdist), par1_1 = input$par1_1, par2_1 = handle_null(input$par2_1),
-                           par1_2 = input$par1_2, par2_2 = handle_null(input$par2_2),
-                           n1 = text_to_vector(input$n1),
-                           n2 = text_to_vector(input$n2),
+    return(replext_t4_c1.1(rdist = text_to_char_vector(input$rdist), par1_1 = input$par1_1, par2_1 = mmints::vec_null(input$par2_1),
+                           par1_2 = input$par1_2, par2_2 = mmints::vec_null(input$par2_2),
+                           n1 = mmints::text_to_vector(input$n1),
+                           n2 = mmints::text_to_vector(input$n2),
                            n_simulations = input$n_simulations, nboot = input$nboot,
                            conf.level = input$conf.level))
   } else if (grepl("^replext_t5_", input$cellBlock) || grepl("^replext_t6_", input$cellBlock)) {
     return(replext_t5_c1.1(M1 = input$M1, S1 = input$S1, M2 = input$M2, S2 = input$S2,
-                           Sk1 = handle_null(input$Sk1), Sk2 = handle_null(input$Sk2),
-                           correl = input$correl, n = text_to_vector(input$n),
+                           Sk1 = mmints::vec_null(input$Sk1), Sk2 = mmints::vec_null(input$Sk2),
+                           correl = input$correl, n = mmints::text_to_vector(input$n),
                            n_simulations = input$n_simulations, nboot = input$nboot,
                            conf.level = input$conf.level))
   } else if (grepl("^replext_ts2_", input$cellBlock) || grepl("^replext_ts3_", input$cellBlock)) {
     return(replext_ts2_c1.1(M1 = input$M1, S1 = input$S1, M2 = input$M2, S2 = input$S2,
                             M3 = input$M3, S3 = input$S3,
-                            Sk1 = handle_null(input$Sk1), Sk2 = handle_null(input$Sk2),
-                            Sk3 = handle_null(input$Sk3),
-                            n1 = text_to_vector(input$n1), n2 = text_to_vector(input$n2),
-                            n3 = text_to_vector(input$n3),
+                            Sk1 = mmints::vec_null(input$Sk1), Sk2 = mmints::vec_null(input$Sk2),
+                            Sk3 = mmints::vec_null(input$Sk3),
+                            n1 = mmints::text_to_vector(input$n1), n2 = mmints::text_to_vector(input$n2),
+                            n3 = mmints::text_to_vector(input$n3),
                             n_simulations = input$n_simulations, nboot = input$nboot,
                             conf.level = input$conf.level))
   } else {
     stop("Must select a supported cell block")
   }
 
-}
-
-
-#' Handle NULL or Empty Input Parameters
-#'
-#' This internal function is used to process input parameters in a Shiny app.
-#' It checks if the provided parameter is `NA` or an empty string and accordingly
-#' returns `NULL` or converts it to a numeric value. This function ensures that
-#' simulation functions receive properly formatted parameters.
-#'
-#' @param par_input An input parameter that could be `NA` or an empty string,
-#'        typically a user input from the Shiny app's UI. Default is an empty string.
-#'
-#' @return `NULL` if the input parameter is `NA` or an empty string;
-#'         otherwise, the numeric value of the input parameter.
-#'
-#' @keywords internal
-handle_null <- function(par_input = "") {
-  if (is.na(par_input) || par_input == "") {
-    return(NULL)
-  } else {
-    return(as.numeric(par_input))
-  }
-}
-
-#' Convert Comma-Separated String to Numeric Vector
-#'
-#' This internal function takes a string of comma-separated values and
-#' converts it into a numeric vector. It is typically used to process
-#' user inputs from the Shiny app's UI where multiple values can be
-#' entered as a single string.
-#'
-#' @param text_input A string containing comma-separated values,
-#'        typically a user input from the Shiny app's UI.
-#'
-#' @return A numeric vector converted from the comma-separated string.
-#'         If the input is an empty string, returns an empty numeric vector.
-#'
-#' @keywords internal
-text_to_vector <- function(text_input) {
-  as.numeric(unlist(strsplit(text_input, ",")))
 }
 
 #' Convert Comma-Separated String to Character Vector
@@ -927,39 +885,4 @@ text_to_vector <- function(text_input) {
 #' @keywords internal
 text_to_char_vector <- function(text_input) {
   strsplit(trimws(text_input), ",")[[1]]
-}
-
-#' Format Citation
-#'
-#' This internal function formats a citation object into a readable string.
-#' The function extracts relevant information such as the title, author,
-#' year, address, note, and URL from the citation object and formats it into a
-#' standardized citation format.
-#'
-#' @param cit A citation object typically obtained from `citation()`.
-#'
-#' @return A character string with the formatted citation.
-#'
-#' @keywords internal
-format_citation <- function(cit) {
-  title <- cit$title
-  author <- if (is.null(cit$author)) {
-    cit$organization
-  } else {
-    paste(sapply(cit$author, function(a) paste(a$given, a$family)), collapse = ", ")
-  }
-  year <- cit$year
-  address <- cit$address
-  url <- cit$url
-  note <- cit$note
-
-  formatted_cit <- paste0(
-    author, " (", year, "). ",
-    title, ". ",
-    note, ", ",
-    "Retrieved from ", url, ". ",
-    address
-  )
-
-  formatted_cit
 }

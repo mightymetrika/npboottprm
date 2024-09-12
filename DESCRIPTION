@@ -40,8 +40,7 @@ Imports:
     lmPerm,
     MASS,
     MKinfer,
-    pool,
-    RPostgres,
+    mmints,
     shiny,
     shinythemes,
     sn
