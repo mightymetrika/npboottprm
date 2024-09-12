@@ -72,7 +72,7 @@ replext_ts2_c1.1 <- function(M1 = 5, S1 = 1, M2 = 5, S2 = 1, M3 = 5, S3 = 1,
     }, error = function(e) NA)
 
     anov <- tryCatch({
-      stats::anova(stats::lm(x ~ factor(grp), df))$`F value`[1] <= 1 - conf.level
+      stats::anova(stats::lm(x ~ factor(grp), df))$`Pr(>F)`[1] <= 1 - conf.level
     }, error = function(e) NA)
 
     kw <- tryCatch({
