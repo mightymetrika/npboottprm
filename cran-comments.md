@@ -1,8 +1,9 @@
-This patch fixes bugs with the replext_pgsql() 'shiny' app to ensure that null
-values for skew are being handled correctly.
+This patch fixes bugs to ensure that values of 0 for skew are handled correctly.
+The patch also fixes a bug in replext_ts2_c1.1() to ensure that the p-value
+comparison for ANOVA is correct.
 
-The patch also adds a citations button to 'shiny' apps to make it easier for
-users to cite the statistical methods and software upon which the apps were built.
+The patch also incorporates the 'mmints' R package in order to reduce repetition
+in 'shiny' applications by using modules.
 
 ## R CMD check results
 
