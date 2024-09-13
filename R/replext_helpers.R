@@ -764,7 +764,8 @@ appendInputParams <- function(df, input) {
     )
   } else if (grepl("^replext_t4_", input$cellBlock) || grepl("^replext_ts1_", input$cellBlock)) {
     params_df <- data.frame(
-      rdist = text_to_char_vector(input$rdist), par1_1 = input$par1_1, par2_1 = mmints::vec_null(input$par2_1),
+      rdist = toString(text_to_char_vector(input$rdist)),
+      par1_1 = input$par1_1, par2_1 = mmints::vec_null(input$par2_1),
       par1_2 = input$par1_2, par2_2 = mmints::vec_null(input$par2_2),
       n_simulations = input$n_simulations, nboot = input$nboot,
       conf.level = input$conf.level, cellblock = input$cellBlock,
@@ -774,11 +775,17 @@ appendInputParams <- function(df, input) {
     # make sure rpois values are null in the database
     if (input$rdist == "rpois"){
       params_df$par2_1 <- NULL
-      params_df$par2_1 <- NULL
+      params_df$par2_2 <- NULL
     }
 
-    if(grepl("rchisq",input$rdist) & grepl("rpois", input$rdist)) {
-      params_df$par2_1 <- NULL
+    if (length(text_to_char_vector(input$rdist)) == 2){
+      if(text_to_char_vector(input$rdist)[1] == "rpois"){
+        params_df$par2_1 <- NULL
+      }
+
+      if(text_to_char_vector(input$rdist)[2] == "rpois"){
+        params_df$par2_2 <- NULL
+      }
     }
 
   } else if (grepl("^replext_t5_", input$cellBlock) || grepl("^replext_t6_", input$cellBlock)) {
