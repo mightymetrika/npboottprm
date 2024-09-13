@@ -772,7 +772,7 @@ appendInputParams <- function(df, input) {
       RunCode = run_code, stringsAsFactors = FALSE
     )
 
-    # make sure rpois values are null in the database
+    # make sure rpois values for par2 are null in the database
     if (input$rdist == "rpois"){
       params_df$par2_1 <- NULL
       params_df$par2_2 <- NULL
